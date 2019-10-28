@@ -2,10 +2,7 @@ import { LanguageContext } from '../language-context';
 import React from 'react';
 import { Member } from '../models/member';
 import { Field } from '../field';
-
-export function Button({ children, onClick }: { children: string; onClick?(): void }) {
-  return <button onClick={onClick}>{children}</button>;
-}
+import { Button } from '../button';
 
 const emptyMember: Member = {
   address: '',

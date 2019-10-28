@@ -22,6 +22,16 @@ export const defaultLanguageLabels = {
     SAVE_BUTTON: 'SAVE_BUTTON',
     SAVE_BUTTON_AND_CREATE_NEW: 'SAVE_BUTTON_AND_CREATE_NEW',
   },
+  memberTable: {
+    NAME: 'NAME',
+    ID: 'ID',
+    ORGANIZATION: 'ORGANIZATION',
+    ACTIONS: 'ACTIONS',
+  },
+  membersPage: {
+    HEADER: "HEADER",
+    NEW_MEMBER: 'NEW_MEMBER',
+  }
 };
 
 export const LanguageContext = React.createContext(defaultLanguageLabels);
