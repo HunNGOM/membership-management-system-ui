@@ -1,42 +1,18 @@
 import React from 'react';
-import { MemberForm, Props } from './index';
-import { render, fireEvent } from '@testing-library/react';
+import { MemberForm } from './index';
+import { render } from '@testing-library/react';
 import { defaultLanguageLabels } from '../language-context';
 import { aMember } from '../test-utils/model-builders';
-import { Member } from '../models/member';
+import { GetProps } from '../utils/get-props';
 
 const { memberForm } = defaultLanguageLabels;
 
-function setup(props: Partial<Props> = {}) {
-  const user = render(<MemberForm member={null} onChange={() => {}} {...props} />);
-
-  return {
-    ...user,
-    helpers: {
-      fillForm(member: Partial<Member>) {
-        const changeTextField = (label: string, value: string | null | undefined) =>
-          value &&
-          fireEvent.change(user.getByLabelText(label), {
-            target: { value: value },
-          });
-
-        changeTextField(memberForm.NAME, member.name);
-        changeTextField(memberForm.ORGANIZATION, member.organization);
-        changeTextField(memberForm.BIRTH_DATE, member.birthDate);
-        changeTextField(memberForm.ADDRESS, member.address);
-        changeTextField(memberForm.PHONE_NUMBER, member.phoneNumber);
-        changeTextField(memberForm.EMAIL, member.email);
-        changeTextField(memberForm.GENDER, member.gender);
-        changeTextField(memberForm.REGISTRATION_DATE, member.registrationDate);
-        changeTextField(memberForm.MEMBER_CATEGORY, member.memberCategory);
-        changeTextField(memberForm.STATUS, member.status);
-      },
-    },
-  };
+function setup(props: Partial<GetProps<typeof MemberForm>> = {}) {
+  return render(<MemberForm member={aMember()} onChange={() => {}} {...props} />);
 }
 
 test('should display member fields', () => {
-  const { queryByLabelText } = setup({ member: null });
+  const { queryByLabelText } = setup();
 
   expect(queryByLabelText(memberForm.NAME)).toBeInTheDocument();
   expect(queryByLabelText(memberForm.ORGANIZATION)).toBeInTheDocument();
@@ -77,54 +53,6 @@ test('should display member information if it is not null', () => {
   expect(queryByDisplayValue(/member email/i)).toBeInTheDocument();
   expect(queryByDisplayValue(/member gender/i)).toBeInTheDocument();
   expect(queryByDisplayValue(/member memberCategory/i)).toBeInTheDocument();
-});
-
-test('should display save buttons', () => {
-  const { queryByText, getAllByRole } = setup({ member: null });
-
-  const saveButton = queryByText(memberForm.SAVE_BUTTON);
-  const saveButtonAndCreateNew = queryByText(memberForm.SAVE_BUTTON_AND_CREATE_NEW);
-  expect(saveButton).toBeInTheDocument();
-  expect(saveButtonAndCreateNew).toBeInTheDocument();
-  expect(getAllByRole('button')).toEqual(expect.arrayContaining([saveButtonAndCreateNew, saveButton]));
-});
-
-test('should call onChange with new data when user clicks to save button', () => {
-  const onChange = jest.fn();
-  const {
-    getByText,
-    helpers: { fillForm },
-  } = setup({ onChange });
-
-  fillForm({
-    name: 'NEW_NAME',
-    organization: 'NEW_ORGANIZATION',
-    birthDate: 'NEW_BIRTH_DATE',
-    address: 'NEW_ADDRESS',
-    phoneNumber: 'NEW_PHONE_NUMBER',
-    email: 'NEW_EMAIL',
-    gender: 'NEW_GENDER',
-    registrationDate: 'NEW_REGISTRATION_DATE',
-    memberCategory: 'NEW_MEMBER_CATEGORY',
-    status: 'NEW_STATUS',
-  });
-  fireEvent.click(getByText(memberForm.SAVE_BUTTON));
-
-  expect(onChange).toBeCalledWith({
-    member: {
-      name: 'NEW_NAME',
-      id: '',
-      organization: 'NEW_ORGANIZATION',
-      birthDate: 'NEW_BIRTH_DATE',
-      address: 'NEW_ADDRESS',
-      phoneNumber: 'NEW_PHONE_NUMBER',
-      email: 'NEW_EMAIL',
-      gender: 'NEW_GENDER',
-      registrationDate: 'NEW_REGISTRATION_DATE',
-      memberCategory: 'NEW_MEMBER_CATEGORY',
-      status: 'NEW_STATUS',
-    } as Member,
-  });
 });
 
 test('should have required fields', () => {

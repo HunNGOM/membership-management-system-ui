@@ -2,44 +2,23 @@ import { LanguageContext } from '../language-context';
 import React from 'react';
 import { Member } from '../models/member';
 import { Field } from '../field';
-import { Button } from '../button';
-
-const emptyMember: Member = {
-  address: '',
-  birthDate: '',
-  email: '',
-  gender: '',
-  id: '',
-  memberCategory: '',
-  name: '',
-  organization: '',
-  phoneNumber: '',
-  registrationDate: '',
-  status: '',
-};
 
 export type Props = {
-  member: Member | null;
-  onChange(args: { member: Member }): void;
+  member: Member;
+  onChange(member: Member): void;
 };
 
-export function MemberForm({ member: initialMember, onChange }: Props) {
+export function MemberForm({ member, onChange }: Props) {
   const { memberForm } = React.useContext(LanguageContext);
-  const [member, setMember] = React.useState(initialMember != null ? initialMember : emptyMember);
 
   const handleMemberChange = (property: keyof Member) => (newValue: string) =>
-    setMember((previousMember) => {
-      return {
-        ...previousMember,
-        [property]: newValue,
-      };
+    onChange({
+      ...member,
+      [property]: newValue,
     });
 
   return (
     <>
-      <Button onClick={() => onChange({ member })}>{memberForm.SAVE_BUTTON}</Button>
-      <Button>{memberForm.SAVE_BUTTON_AND_CREATE_NEW}</Button>
-
       <Field label={memberForm.NAME} isRequired={true} onChange={handleMemberChange('name')} value={member.name} />
       <Field
         label={memberForm.ORGANIZATION}

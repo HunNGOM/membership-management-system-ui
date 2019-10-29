@@ -6,7 +6,7 @@ import 'flatpickr/dist/flatpickr.css';
 
 type Props = { value: DateTime; onChange?(value: DateTime): void };
 
-function useDatepicker(configuration: { value: DateTime; onChange(newValue: DateTime): void }) {
+function useDatepicker({ value, onChange }: { value: DateTime; onChange(newValue: DateTime): void }) {
   const elementRef = React.useRef<HTMLInputElement>(null);
   const [instance, setInstance] = React.useState<flatpickr.Instance | null>(null);
 
@@ -17,7 +17,7 @@ function useDatepicker(configuration: { value: DateTime; onChange(newValue: Date
 
     const datePickerInstance = flatpickr(elementRef.current, {
       onChange([currentDate]) {
-        configuration.onChange(DateTime.fromJSDate(currentDate));
+        onChange(DateTime.fromJSDate(currentDate));
       },
     });
     setInstance(datePickerInstance);
@@ -29,8 +29,8 @@ function useDatepicker(configuration: { value: DateTime; onChange(newValue: Date
       return;
     }
 
-    instance.setDate(configuration.value.toJSDate());
-  }, [instance, configuration.value]);
+    instance.setDate(value.toJSDate());
+  }, [instance, value]);
 
   return elementRef;
 }
