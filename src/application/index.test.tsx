@@ -1,15 +1,19 @@
 import React from 'react';
 import { Application } from './index';
-import { render, within, fireEvent } from '@testing-library/react';
+import { fireEvent, render, within } from '@testing-library/react';
 import { defaultLanguageLabels } from '../language-context';
 import { MemoryRouter } from 'react-router-dom';
+import { ApplicationServicesContext } from '../application-services-context';
+import { aNeverReturningStore } from '../test-utils/model-builders';
 
 const { membersPage, applicationSidebar, newMemberPage } = defaultLanguageLabels;
 
 function setup({ actualRoute = '/' }: { actualRoute?: string } = {}) {
   return render(
     <MemoryRouter initialEntries={[actualRoute]}>
-      <Application />
+      <ApplicationServicesContext.Provider value={{ memberStore: aNeverReturningStore() }}>
+        <Application />
+      </ApplicationServicesContext.Provider>
     </MemoryRouter>,
   );
 }
@@ -17,13 +21,13 @@ function setup({ actualRoute = '/' }: { actualRoute?: string } = {}) {
 test('should display members list by default', () => {
   const { getByRole } = setup({ actualRoute: '/' });
 
-  expect(getByRole('heading').textContent).toEqual(membersPage.HEADER);
+  expect(getByRole('heading')).toHaveTextContent(membersPage.HEADER);
 });
 
 test('should display members list when route is /members', () => {
   const { getByRole } = setup({ actualRoute: '/members' });
 
-  expect(getByRole('heading').textContent).toEqual(membersPage.HEADER);
+  expect(getByRole('heading')).toHaveTextContent(membersPage.HEADER);
 });
 
 test('should able to navigate to new member form from members list', () => {
@@ -31,13 +35,13 @@ test('should able to navigate to new member form from members list', () => {
 
   fireEvent.click(getByText(membersPage.NEW_MEMBER));
 
-  expect(getByRole('heading').textContent).toEqual(newMemberPage.HEADER);
+  expect(getByRole('heading')).toHaveTextContent(newMemberPage.HEADER);
 });
 
 test('should display new member form when route is /member', () => {
   const { getByRole } = setup({ actualRoute: '/member' });
 
-  expect(getByRole('heading').textContent).toEqual(newMemberPage.HEADER);
+  expect(getByRole('heading')).toHaveTextContent(newMemberPage.HEADER);
 });
 
 test('should display application menu', () => {

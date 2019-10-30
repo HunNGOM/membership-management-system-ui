@@ -1,18 +1,9 @@
 import React from 'react';
 import { MembersPage } from '../members-page';
 import { ApplicationSidebar } from '../application-sidebar';
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { NewMemberPage } from '../new-member-page';
-
-function useApplicationNavigation() {
-  const history = useHistory();
-
-  return {
-    goToNewMemberPage() {
-      history.push('/member');
-    },
-  };
-}
+import { useApplicationNavigation } from '../services/application-navigation-hook';
 
 export function Application() {
   const { goToNewMemberPage } = useApplicationNavigation();

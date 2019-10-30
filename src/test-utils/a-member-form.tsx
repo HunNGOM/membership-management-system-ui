@@ -2,7 +2,7 @@ import { fireEvent, within } from '@testing-library/react';
 import { defaultLanguageLabels } from '../language-context';
 import { Member } from '../models/member';
 
-export function memberFormTestObject(element: HTMLElement) {
+export function aMemberForm(element: HTMLElement) {
   const { memberForm } = defaultLanguageLabels;
   const { queryByLabelText, getByLabelText } = within(element);
 

@@ -1,13 +1,20 @@
 import React from 'react';
 import { defaultLanguageLabels } from '../language-context';
-import { MembersPage, Props } from './index';
-import { render, fireEvent } from '@testing-library/react';
-import { aMember } from '../test-utils/model-builders';
+import { MembersPage } from './index';
+import { fireEvent, render } from '@testing-library/react';
+import { aMember, aMemberStoreMock, aNeverReturningStore } from '../test-utils/model-builders';
+import { GetProps } from '../utils/get-props';
+import { memberStore } from '../services/member-store';
+import { ApplicationServicesContext } from '../application-services-context';
 
 const { membersPage } = defaultLanguageLabels;
 
-function setup(props: Partial<Props> = {}) {
-  return render(<MembersPage members={[]} onAdd={() => {}} onSelection={() => {}} {...props} />);
+function setup(props: Partial<GetProps<typeof MembersPage> & { memberStore: MemberStore }> = {}) {
+  return render(
+    <ApplicationServicesContext.Provider value={{ memberStore: props.memberStore || aNeverReturningStore() }}>
+      <MembersPage onAdd={() => {}} onSelection={() => {}} {...props} />
+    </ApplicationServicesContext.Provider>,
+  );
 }
 
 test('should display heading', () => {
@@ -40,11 +47,39 @@ test('should call onAdd event handler when user clicks to new member button', ()
   expect(onAdd).toHaveBeenCalled();
 });
 
-test('should call onSelection event handler when user clicks to a member name', () => {
+test('should call onSelection event handler when user clicks to a member name', async () => {
   const onSelection = jest.fn();
-  const { getByText } = setup({ onSelection, members: [aMember({ name: 'selected member' })] });
+  const { findByText } = setup({
+    onSelection,
+    memberStore: aMemberStoreMock({
+      members: [
+        aMember({
+          name: 'selected member',
+        }),
+      ],
+    }),
+  });
 
-  fireEvent.click(getByText(/selected member/i));
+  fireEvent.click(await findByText(/selected member/i));
 
   expect(onSelection).toHaveBeenCalled();
+});
+
+test('should display members from member store', async () => {
+  const { findByText } = setup({
+    memberStore: aMemberStoreMock({
+      members: [
+        aMember({
+          name: 'test member 1',
+        }),
+
+        aMember({
+          name: 'test member 2',
+        }),
+      ],
+    }),
+  });
+
+  expect(await findByText(/test member 1/i)).toBeInTheDocument();
+  expect(await findByText(/test member 2/i)).toBeInTheDocument();
 });

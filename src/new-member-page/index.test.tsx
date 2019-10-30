@@ -1,24 +1,29 @@
 import React from 'react';
 import { defaultLanguageLabels } from '../language-context';
 import { NewMemberPage } from './index';
-import { fireEvent, render } from '@testing-library/react';
-import { memberFormTestObject } from '../test-utils/member-form-test-object';
+import { fireEvent, render, wait } from '@testing-library/react';
+import { aMemberForm } from '../test-utils/a-member-form';
 import { Member } from '../models/member';
 import { memberStore } from '../services/member-store';
 import { ApplicationServicesContext } from '../application-services-context';
+import { Router } from 'react-router';
+import { History, createMemoryHistory } from 'history';
+import { aMemberStoreMock } from '../test-utils/model-builders';
 
 const { newMemberPage } = defaultLanguageLabels;
 
-function setup(store: typeof memberStore) {
+function setup(store: MemberStore = aMemberStoreMock(), history: History = createMemoryHistory()) {
   const user = render(
     <ApplicationServicesContext.Provider value={{ memberStore: store }}>
-      <NewMemberPage />
+      <Router history={history}>
+        <NewMemberPage />
+      </Router>
     </ApplicationServicesContext.Provider>,
   );
 
   return {
     ...user,
-    helpers: memberFormTestObject(user.container),
+    helpers: aMemberForm(user.container),
   };
 }
 
@@ -29,13 +34,13 @@ test('should display heading', () => {
 });
 
 test('should display a new member form', () => {
-  const { isDisplayed } = memberFormTestObject(setup().container);
+  const { isDisplayed } = aMemberForm(setup().container);
 
   expect(isDisplayed()).toBeTruthy();
 });
 
 test('should display save buttons', () => {
-  const { queryByText, getAllByRole } = setup({ member: null });
+  const { queryByText, getAllByRole } = setup();
 
   const saveButton = queryByText(newMemberPage.SAVE_BUTTON);
   const saveButtonAndCreateNew = queryByText(newMemberPage.SAVE_BUTTON_AND_CREATE_NEW);
@@ -44,14 +49,13 @@ test('should display save buttons', () => {
   expect(getAllByRole('button')).toEqual(expect.arrayContaining([saveButtonAndCreateNew, saveButton]));
 });
 
-test('should call onChange with new data when user clicks to save button', () => {
-  const memberStoreMock: typeof memberStore = {
-    createMember: jest.fn(),
-  };
+test('should save member and should navigate to the members page when user clicks to save button', async () => {
+  const store = aMemberStoreMock();
+  const history = createMemoryHistory();
   const {
     getByText,
     helpers: { fillForm },
-  } = setup(memberStoreMock);
+  } = setup(store, history);
 
   fillForm({
     name: 'NEW_NAME',
@@ -67,9 +71,46 @@ test('should call onChange with new data when user clicks to save button', () =>
   });
   fireEvent.click(getByText(newMemberPage.SAVE_BUTTON));
 
-  expect(memberStoreMock.createMember).toBeCalledWith({
+  expect(store.createMember).toBeCalledWith({
     name: 'NEW_NAME',
-    id: '',
+    id: expect.anything(),
+    organization: 'NEW_ORGANIZATION',
+    birthDate: 'NEW_BIRTH_DATE',
+    address: 'NEW_ADDRESS',
+    phoneNumber: 'NEW_PHONE_NUMBER',
+    email: 'NEW_EMAIL',
+    gender: 'NEW_GENDER',
+    registrationDate: 'NEW_REGISTRATION_DATE',
+    memberCategory: 'NEW_MEMBER_CATEGORY',
+    status: 'NEW_STATUS',
+  } as Member);
+  await wait(() => expect(history.location.pathname).toEqual('/members'));
+});
+
+test('should save member when user clicks to save and create new button', () => {
+  const store = aMemberStoreMock();
+  const {
+    getByText,
+    helpers: { fillForm },
+  } = setup(store);
+
+  fillForm({
+    name: 'NEW_NAME',
+    organization: 'NEW_ORGANIZATION',
+    birthDate: 'NEW_BIRTH_DATE',
+    address: 'NEW_ADDRESS',
+    phoneNumber: 'NEW_PHONE_NUMBER',
+    email: 'NEW_EMAIL',
+    gender: 'NEW_GENDER',
+    registrationDate: 'NEW_REGISTRATION_DATE',
+    memberCategory: 'NEW_MEMBER_CATEGORY',
+    status: 'NEW_STATUS',
+  });
+  fireEvent.click(getByText(newMemberPage.SAVE_BUTTON_AND_CREATE_NEW));
+
+  expect(store.createMember).toBeCalledWith({
+    name: 'NEW_NAME',
+    id: expect.anything(),
     organization: 'NEW_ORGANIZATION',
     birthDate: 'NEW_BIRTH_DATE',
     address: 'NEW_ADDRESS',

@@ -5,6 +5,7 @@ import { Button } from '../button';
 import { MemberForm } from '../member-form';
 import { ApplicationServicesContext } from '../application-services-context';
 import { Member } from '../models/member';
+import { useApplicationNavigation } from '../services/application-navigation-hook';
 
 const emptyMember: Member = {
   address: '',
@@ -24,11 +25,19 @@ export function NewMemberPage() {
   const { newMemberPage } = React.useContext(LanguageContext);
   const { memberStore } = React.useContext(ApplicationServicesContext);
   const [member, setMember] = React.useState<Member>(emptyMember);
+  const { goToMembersPage } = useApplicationNavigation();
+
+  const createMember = () => memberStore.createMember(member);
+
+  const handleSaveButton = async () => {
+    await createMember();
+    goToMembersPage();
+  };
 
   return (
     <Page header={newMemberPage.HEADER}>
-      <Button onClick={() => memberStore.createMember(member)}>{newMemberPage.SAVE_BUTTON}</Button>
-      <Button>{newMemberPage.SAVE_BUTTON_AND_CREATE_NEW}</Button>
+      <Button onClick={handleSaveButton}>{newMemberPage.SAVE_BUTTON}</Button>
+      <Button onClick={createMember}>{newMemberPage.SAVE_BUTTON_AND_CREATE_NEW}</Button>
       <MemberForm member={member} onChange={setMember} />
     </Page>
   );

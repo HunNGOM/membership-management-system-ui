@@ -1,4 +1,12 @@
 import { Member } from '../models/member';
+import { MemberStore } from '../services/member-store';
+
+export const aMemberStoreMock = ({ members = [] }: { members?: readonly Member[] } = {}): MemberStore => {
+  return {
+    createMember: jest.fn(() => Promise.resolve()),
+    getMembers: jest.fn(async () => members),
+  };
+};
 
 export function aMember(parameters: Partial<Member> = {}): Member {
   return {
@@ -15,4 +23,16 @@ export function aMember(parameters: Partial<Member> = {}): Member {
     memberCategory: null,
     ...parameters,
   };
+}
+
+export function aNeverReturningStore() {
+  return {
+    async getMembers(): Promise<readonly Member[]> {
+      return new Promise<readonly Member[]>(() => {});
+    },
+
+    async createMember() {
+      return new Promise<void>(() => {});
+    },
+  } as MemberStore;
 }
