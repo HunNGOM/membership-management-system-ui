@@ -1,6 +1,6 @@
 import React from 'react';
 import { Member } from '../models/member';
-import { LanguageContext } from '../language-context';
+import { LanguageContext } from '../../language-context';
 
 export type Props = {
   member: Member;

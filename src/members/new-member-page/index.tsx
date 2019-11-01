@@ -1,11 +1,11 @@
 import React from 'react';
-import { LanguageContext } from '../language-context';
-import { Page } from '../page';
-import { Button } from '../button';
+import { LanguageContext } from '../../language-context';
+import { Page } from '../../page';
+import { Button } from '../../button';
 import { MemberForm } from '../member-form';
-import { ApplicationServicesContext } from '../application-services-context';
+import { ApplicationServiceContext } from '../../application-service-context';
 import { Member } from '../models/member';
-import { useApplicationNavigation } from '../services/application-navigation-hook';
+import { useApplicationNavigation } from '../../services/application-navigation-hook';
 
 const emptyMember: Member = {
   address: '',
@@ -23,7 +23,7 @@ const emptyMember: Member = {
 
 export function NewMemberPage() {
   const { newMemberPage } = React.useContext(LanguageContext);
-  const { memberStore } = React.useContext(ApplicationServicesContext);
+  const { memberStore } = React.useContext(ApplicationServiceContext);
   const [member, setMember] = React.useState<Member>(emptyMember);
   const { goToMembersPage } = useApplicationNavigation();
 

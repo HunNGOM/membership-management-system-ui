@@ -1,11 +1,11 @@
 import React from 'react';
-import { defaultLanguageLabels } from '../language-context';
+import { defaultLanguageLabels } from '../../language-context';
 import { MembersPage } from './index';
 import { fireEvent, render } from '@testing-library/react';
-import { aMember, aMemberStoreMock, aNeverReturningStore } from '../test-utils/model-builders';
-import { GetProps } from '../utils/get-props';
-import { ApplicationServicesContext } from '../application-services-context';
-import { MemberStore } from '../services/member-store';
+import { aMember, aMemberStoreMock, aNeverReturningStore } from '../../test-utils/model-builders';
+import { GetProps } from '../../utils/get-props';
+import { ApplicationServiceContext } from '../../application-service-context';
+import { MemberStore } from '../../services/member-store';
 import { Router } from 'react-router-dom';
 import { History, createMemoryHistory } from 'history';
 
@@ -14,9 +14,9 @@ const { membersPage } = defaultLanguageLabels;
 function setup(props: Partial<GetProps<typeof MembersPage> & { memberStore: MemberStore; history: History }> = {}) {
   return render(
     <Router history={props.history || createMemoryHistory()}>
-      <ApplicationServicesContext.Provider value={{ memberStore: props.memberStore || aNeverReturningStore() }}>
+      <ApplicationServiceContext.Provider value={{ memberStore: props.memberStore || aNeverReturningStore() }}>
         <MembersPage onSelection={() => {}} {...props} />
-      </ApplicationServicesContext.Provider>
+      </ApplicationServiceContext.Provider>
       ,
     </Router>,
   );

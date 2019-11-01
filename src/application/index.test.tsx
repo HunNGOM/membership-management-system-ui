@@ -3,7 +3,7 @@ import { Application } from './index';
 import { fireEvent, render, within } from '@testing-library/react';
 import { defaultLanguageLabels } from '../language-context';
 import { MemoryRouter } from 'react-router-dom';
-import { ApplicationServicesContext } from '../application-services-context';
+import { ApplicationServiceContext } from '../application-service-context';
 import { aNeverReturningStore } from '../test-utils/model-builders';
 
 const { membersPage, applicationSidebar, newMemberPage, memberPage } = defaultLanguageLabels;
@@ -11,9 +11,9 @@ const { membersPage, applicationSidebar, newMemberPage, memberPage } = defaultLa
 function setup({ actualRoute = '/' }: { actualRoute?: string } = {}) {
   return render(
     <MemoryRouter initialEntries={[actualRoute]}>
-      <ApplicationServicesContext.Provider value={{ memberStore: aNeverReturningStore() }}>
+      <ApplicationServiceContext.Provider value={{ memberStore: aNeverReturningStore() }}>
         <Application />
-      </ApplicationServicesContext.Provider>
+      </ApplicationServiceContext.Provider>
     </MemoryRouter>,
   );
 }

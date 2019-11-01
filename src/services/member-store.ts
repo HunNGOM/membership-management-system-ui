@@ -1,4 +1,4 @@
-import { Member } from '../models/member';
+import { Member } from '../members/models/member';
 
 let members: readonly Member[] = [];
 

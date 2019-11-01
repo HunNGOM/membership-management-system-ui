@@ -1,9 +1,9 @@
 import React from 'react';
-import { MembersPage } from '../members-page';
+import { MembersPage } from '../members/members-page';
 import { ApplicationSidebar } from '../application-sidebar';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { NewMemberPage } from '../new-member-page';
-import { MemberPage } from '../member-page';
+import { NewMemberPage } from '../members/new-member-page';
+import { MemberPage } from '../members/member-page';
 
 export function Application() {
   return (

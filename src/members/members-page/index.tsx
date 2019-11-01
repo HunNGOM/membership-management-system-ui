@@ -1,15 +1,15 @@
 import React from 'react';
 import { Member } from '../models/member';
-import { LanguageContext } from '../language-context';
-import { Page } from '../page';
+import { LanguageContext } from '../../language-context';
+import { Page } from '../../page';
 import { MemberTable } from '../member-table';
-import { Button } from '../button';
-import { ApplicationServicesContext } from '../application-services-context';
-import { useApplicationNavigation } from '../services/application-navigation-hook';
+import { Button } from '../../button';
+import { ApplicationServiceContext } from '../../application-service-context';
+import { useApplicationNavigation } from '../../services/application-navigation-hook';
 
 export function MembersPage() {
   const { membersPage } = React.useContext(LanguageContext);
-  const { memberStore } = React.useContext(ApplicationServicesContext);
+  const { memberStore } = React.useContext(ApplicationServiceContext);
   const { goToNewMemberPage, goToEditMemberPage } = useApplicationNavigation();
   const [members, setMembers] = React.useState<readonly Member[]>([]);
 

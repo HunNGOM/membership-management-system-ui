@@ -1,4 +1,4 @@
-import { Member } from '../models/member';
+import { Member } from '../members/models/member';
 import { MemberStore } from '../services/member-store';
 
 export function aMember(parameters: Partial<Member> = {}): Member {

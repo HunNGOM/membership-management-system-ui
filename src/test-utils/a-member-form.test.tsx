@@ -1,6 +1,6 @@
 import { fireEvent, within } from '@testing-library/react';
 import { defaultLanguageLabels } from '../language-context';
-import { Member } from '../models/member';
+import { Member } from '../members/models/member';
 
 export function aMemberForm(element: HTMLElement) {
   const { memberForm } = defaultLanguageLabels;

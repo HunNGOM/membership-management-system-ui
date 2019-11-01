@@ -1,8 +1,8 @@
 import React from 'react';
 import { MemberView, Props } from './index';
 import { render } from '@testing-library/react';
-import { defaultLanguageLabels } from '../language-context';
-import { aMember } from '../test-utils/model-builders';
+import { defaultLanguageLabels } from '../../language-context';
+import { aMember } from '../../test-utils/model-builders';
 
 const { memberForm } = defaultLanguageLabels;
 

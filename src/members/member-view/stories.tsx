@@ -1,16 +1,13 @@
 import React from 'react';
-import { MemberForm } from './index';
-import { aMember } from '../test-utils/model-builders';
-import { action } from '@storybook/addon-actions';
+import { MemberView } from './index';
+import { aMember } from '../../test-utils/model-builders';
 
 export default {
-  title: MemberForm.name,
+  title: MemberView.name,
 };
 
-const onChange = action('onChange');
-
-export const editingExistingMember = () => (
-  <MemberForm
+export const viewExistingMember = () => (
+  <MemberView
     member={aMember({
       name: 'member name',
       id: 'member id',
@@ -24,6 +21,5 @@ export const editingExistingMember = () => (
       gender: 'member gender',
       memberCategory: 'member memberCategory',
     })}
-    onChange={onChange}
   />
 );

@@ -1,24 +1,24 @@
 import React from 'react';
-import { defaultLanguageLabels } from '../language-context';
+import { defaultLanguageLabels } from '../../language-context';
 import { NewMemberPage } from './index';
 import { fireEvent, render, wait } from '@testing-library/react';
-import { aMemberForm } from '../test-utils/a-member-form';
+import { aMemberForm } from '../../test-utils/a-member-form.test';
 import { Member } from '../models/member';
-import { memberStore } from '../services/member-store';
-import { ApplicationServicesContext } from '../application-services-context';
+import { memberStore } from '../../services/member-store';
+import { ApplicationServiceContext } from '../../application-service-context';
 import { Router } from 'react-router';
 import { History, createMemoryHistory } from 'history';
-import { aMemberStoreMock } from '../test-utils/model-builders';
+import { aMemberStoreMock } from '../../test-utils/model-builders';
 
 const { newMemberPage } = defaultLanguageLabels;
 
 function setup(store: MemberStore = aMemberStoreMock(), history: History = createMemoryHistory()) {
   const user = render(
-    <ApplicationServicesContext.Provider value={{ memberStore: store }}>
+    <ApplicationServiceContext.Provider value={{ memberStore: store }}>
       <Router history={history}>
         <NewMemberPage />
       </Router>
-    </ApplicationServicesContext.Provider>,
+    </ApplicationServiceContext.Provider>,
   );
 
   return {

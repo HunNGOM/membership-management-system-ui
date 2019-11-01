@@ -1,6 +1,6 @@
 import React from 'react';
 import { MemberTable } from './index';
-import { aMember } from '../test-utils/model-builders';
+import { aMember } from '../../test-utils/model-builders';
 import { action } from '@storybook/addon-actions';
 
 export default {

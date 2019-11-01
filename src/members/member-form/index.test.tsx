@@ -1,9 +1,9 @@
 import React from 'react';
 import { MemberForm } from './index';
 import { render } from '@testing-library/react';
-import { defaultLanguageLabels } from '../language-context';
-import { aMember } from '../test-utils/model-builders';
-import { GetProps } from '../utils/get-props';
+import { defaultLanguageLabels } from '../../language-context';
+import { aMember } from '../../test-utils/model-builders';
+import { GetProps } from '../../utils/get-props';
 
 const { memberForm } = defaultLanguageLabels;
 

@@ -1,12 +1,12 @@
 import React from 'react';
-import { defaultLanguageLabels } from '../language-context';
+import { defaultLanguageLabels } from '../../language-context';
 import { MemberPage } from './index';
 import { render } from '@testing-library/react';
-import { MemberStore } from '../services/member-store';
+import { MemberStore } from '../../services/member-store';
 import { createMemoryHistory, History } from 'history';
-import { aMember, aMemberStoreMock, aNeverReturningStore } from '../test-utils/model-builders';
+import { aMember, aMemberStoreMock, aNeverReturningStore } from '../../test-utils/model-builders';
 import { Route, Router } from 'react-router-dom';
-import { ApplicationServicesContext } from '../application-services-context';
+import { ApplicationServiceContext } from '../../application-service-context';
 
 const { memberPage } = defaultLanguageLabels;
 
@@ -14,9 +14,9 @@ function setup(props: { memberStore?: MemberStore; history?: History } = {}) {
   return render(
     <Router history={props.history || createMemoryHistory({ initialEntries: ['/findMemberById/1'] })}>
       <Route path="/findMemberById/:id">
-        <ApplicationServicesContext.Provider value={{ memberStore: props.memberStore || aNeverReturningStore() }}>
+        <ApplicationServiceContext.Provider value={{ memberStore: props.memberStore || aNeverReturningStore() }}>
           <MemberPage />
-        </ApplicationServicesContext.Provider>
+        </ApplicationServiceContext.Provider>
       </Route>
     </Router>,
   );

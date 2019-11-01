@@ -1,9 +1,9 @@
 import React from 'react';
 import { MemberTable, Props } from './index';
 import { render } from '@testing-library/react';
-import { defaultLanguageLabels } from '../language-context';
-import { toTextContent } from '../test-utils/dom-helpers';
-import { aMember } from '../test-utils/model-builders';
+import { defaultLanguageLabels } from '../../language-context';
+import { toTextContent } from '../../test-utils/dom-helpers';
+import { aMember } from '../../test-utils/model-builders';
 
 const { memberTable } = defaultLanguageLabels;
 
