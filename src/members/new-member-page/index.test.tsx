@@ -2,7 +2,7 @@ import React from 'react';
 import { defaultLanguageLabels } from '../../language-context';
 import { NewMemberPage } from './index';
 import { fireEvent, render, wait } from '@testing-library/react';
-import { aMemberForm } from '../../test-utils/a-member-form.test';
+import { aMemberForm } from '../../test-utils/a-member-form';
 import { Member } from '../models/member';
 import { memberStore } from '../../services/member-store';
 import { ApplicationServiceContext } from '../../application-service-context';
