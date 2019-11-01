@@ -9,8 +9,6 @@ export default {
 
 const onChange = action('onChange');
 
-export const newForm = () => <MemberForm member={null} onChange={onChange} />;
-
 export const editingExistingMember = () => (
   <MemberForm
     member={aMember({

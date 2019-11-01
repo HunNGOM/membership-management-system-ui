@@ -26,6 +26,9 @@ export const defaultLanguageLabels = {
     ORGANIZATION: 'ORGANIZATION',
     ACTIONS: 'ACTIONS',
   },
+  memberPage: {
+    HEADER: 'EXISTING_MEMBER_PAGE_HEADER',
+  },
   membersPage: {
     HEADER: 'MEMBERS_PAGE_HEADER',
     NEW_MEMBER: 'NEW_MEMBER',

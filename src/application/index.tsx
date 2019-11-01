@@ -3,17 +3,19 @@ import { MembersPage } from '../members-page';
 import { ApplicationSidebar } from '../application-sidebar';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { NewMemberPage } from '../new-member-page';
-import { useApplicationNavigation } from '../services/application-navigation-hook';
+import { MemberPage } from '../member-page';
 
 export function Application() {
-  const { goToNewMemberPage } = useApplicationNavigation();
-
   return (
     <>
       <ApplicationSidebar />
       <Switch>
         <Route path="/members">
-          <MembersPage members={[]} onAdd={goToNewMemberPage} onSelection={() => {}} />
+          <MembersPage />
+        </Route>
+
+        <Route path="/member/:id">
+          <MemberPage />
         </Route>
 
         <Route path="/member">

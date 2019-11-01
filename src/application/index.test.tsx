@@ -6,7 +6,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { ApplicationServicesContext } from '../application-services-context';
 import { aNeverReturningStore } from '../test-utils/model-builders';
 
-const { membersPage, applicationSidebar, newMemberPage } = defaultLanguageLabels;
+const { membersPage, applicationSidebar, newMemberPage, memberPage } = defaultLanguageLabels;
 
 function setup({ actualRoute = '/' }: { actualRoute?: string } = {}) {
   return render(
@@ -42,6 +42,12 @@ test('should display new member form when route is /member', () => {
   const { getByRole } = setup({ actualRoute: '/member' });
 
   expect(getByRole('heading')).toHaveTextContent(newMemberPage.HEADER);
+});
+
+test('should display detailed member view when route is /member/:id', () => {
+  const { getByRole } = setup({ actualRoute: '/member/3' });
+
+  expect(getByRole('heading')).toHaveTextContent(memberPage.HEADER);
 });
 
 test('should display application menu', () => {

@@ -1,16 +1,20 @@
 import React from 'react';
 import { MembersPage } from './index';
-import { aMember } from '../test-utils/model-builders';
-import { action } from '@storybook/addon-actions';
+import { ApplicationServicesContext } from '../application-services-context';
+import { memberStore } from '../services/member-store';
+import { MemoryRouter } from 'react-router';
 
 export default {
   title: MembersPage.name,
 };
 
 export const displaysPage = () => (
-  <MembersPage
-    members={[aMember({ name: 'member 1' }), aMember({ name: 'member 2' })]}
-    onAdd={action('onAdd')}
-    onSelection={action('onSelection')}
-  />
+  <ApplicationServicesContext.Provider
+    value={{
+      memberStore,
+    }}>
+    <MemoryRouter>
+      <MembersPage />
+    </MemoryRouter>
+  </ApplicationServicesContext.Provider>
 );

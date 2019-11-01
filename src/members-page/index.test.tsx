@@ -4,16 +4,21 @@ import { MembersPage } from './index';
 import { fireEvent, render } from '@testing-library/react';
 import { aMember, aMemberStoreMock, aNeverReturningStore } from '../test-utils/model-builders';
 import { GetProps } from '../utils/get-props';
-import { memberStore } from '../services/member-store';
 import { ApplicationServicesContext } from '../application-services-context';
+import { MemberStore } from '../services/member-store';
+import { Router } from 'react-router-dom';
+import { History, createMemoryHistory } from 'history';
 
 const { membersPage } = defaultLanguageLabels;
 
-function setup(props: Partial<GetProps<typeof MembersPage> & { memberStore: MemberStore }> = {}) {
+function setup(props: Partial<GetProps<typeof MembersPage> & { memberStore: MemberStore; history: History }> = {}) {
   return render(
-    <ApplicationServicesContext.Provider value={{ memberStore: props.memberStore || aNeverReturningStore() }}>
-      <MembersPage onAdd={() => {}} onSelection={() => {}} {...props} />
-    </ApplicationServicesContext.Provider>,
+    <Router history={props.history || createMemoryHistory()}>
+      <ApplicationServicesContext.Provider value={{ memberStore: props.memberStore || aNeverReturningStore() }}>
+        <MembersPage onSelection={() => {}} {...props} />
+      </ApplicationServicesContext.Provider>
+      ,
+    </Router>,
   );
 }
 
@@ -24,7 +29,7 @@ test('should display heading', () => {
 });
 
 test('should display an empty members table', () => {
-  const { queryByRole } = setup({ members: [] });
+  const { queryByRole } = setup();
 
   expect(queryByRole('table')).toBeInTheDocument();
 });
@@ -37,32 +42,13 @@ test('should display a new member button', () => {
   expect(queryAllByRole('button')).toContain(newMemberButton);
 });
 
-test('should call onAdd event handler when user clicks to new member button', () => {
-  const onAdd = jest.fn();
-  const { getByText } = setup({ onAdd });
-  const newMemberButton = getByText(membersPage.NEW_MEMBER);
+test('should navigate to new member page when user clicks to new member button', () => {
+  const history = createMemoryHistory();
+  const { getByText } = setup({ history });
 
-  fireEvent.click(newMemberButton);
+  fireEvent.click(getByText(membersPage.NEW_MEMBER));
 
-  expect(onAdd).toHaveBeenCalled();
-});
-
-test('should call onSelection event handler when user clicks to a member name', async () => {
-  const onSelection = jest.fn();
-  const { findByText } = setup({
-    onSelection,
-    memberStore: aMemberStoreMock({
-      members: [
-        aMember({
-          name: 'selected member',
-        }),
-      ],
-    }),
-  });
-
-  fireEvent.click(await findByText(/selected member/i));
-
-  expect(onSelection).toHaveBeenCalled();
+  expect(history.location.pathname).toEqual('/member');
 });
 
 test('should display members from member store', async () => {
@@ -82,4 +68,28 @@ test('should display members from member store', async () => {
 
   expect(await findByText(/test member 1/i)).toBeInTheDocument();
   expect(await findByText(/test member 2/i)).toBeInTheDocument();
+});
+
+test('should navigate to detailed member editor when user clicks to member name', async () => {
+  const history = createMemoryHistory();
+  const { findByText } = setup({
+    history,
+    memberStore: aMemberStoreMock({
+      members: [
+        aMember({
+          id: '1',
+          name: 'test member 1',
+        }),
+
+        aMember({
+          id: '2',
+          name: 'test member 2',
+        }),
+      ],
+    }),
+  });
+
+  fireEvent.click(await findByText(/test member 1/));
+
+  expect(history.location.pathname).toEqual('/member/1');
 });

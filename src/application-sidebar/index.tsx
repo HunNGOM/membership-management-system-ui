@@ -1,5 +1,6 @@
 import React from 'react';
 import { LanguageContext } from '../language-context';
+import { Link } from 'react-router-dom';
 
 export function ApplicationSidebar() {
   const { applicationSidebar } = React.useContext(LanguageContext);
@@ -7,7 +8,9 @@ export function ApplicationSidebar() {
   return (
     <nav>
       <ul>
-        <li>{applicationSidebar.MEMBERS}</li>
+        <li>
+          <Link to="/members">{applicationSidebar.MEMBERS}</Link>
+        </li>
         <li>{applicationSidebar.MEMBERSHIP_FEE}</li>
         <li>{applicationSidebar.ORGANIZATION_DETAILS}</li>
         <li>{applicationSidebar.ORGANIZATIONS}</li>

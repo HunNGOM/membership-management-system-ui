@@ -5,15 +5,12 @@ import { Page } from '../page';
 import { MemberTable } from '../member-table';
 import { Button } from '../button';
 import { ApplicationServicesContext } from '../application-services-context';
+import { useApplicationNavigation } from '../services/application-navigation-hook';
 
-export type Props = {
-  onAdd(): void;
-  onSelection(member: Member): void;
-};
-
-export function MembersPage({ onAdd, onSelection }: Props) {
+export function MembersPage() {
   const { membersPage } = React.useContext(LanguageContext);
   const { memberStore } = React.useContext(ApplicationServicesContext);
+  const { goToNewMemberPage, goToEditMemberPage } = useApplicationNavigation();
   const [members, setMembers] = React.useState<readonly Member[]>([]);
 
   React.useEffect(() => {
@@ -22,8 +19,8 @@ export function MembersPage({ onAdd, onSelection }: Props) {
 
   return (
     <Page header={membersPage.HEADER}>
-      <Button onClick={() => onAdd()}>{membersPage.NEW_MEMBER}</Button>
-      <MemberTable members={members} onSelection={onSelection} />
+      <Button onClick={goToNewMemberPage}>{membersPage.NEW_MEMBER}</Button>
+      <MemberTable members={members} onSelection={goToEditMemberPage} />
     </Page>
   );
 }
