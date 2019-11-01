@@ -46,7 +46,7 @@ test('should display save buttons', () => {
   const saveButtonAndCreateNew = queryByText(newMemberPage.SAVE_BUTTON_AND_CREATE_NEW);
   expect(saveButton).toBeInTheDocument();
   expect(saveButtonAndCreateNew).toBeInTheDocument();
-  expect(getAllByRole('button')).toEqual(expect.arrayContaining([saveButtonAndCreateNew, saveButton]));
+  expect(getAllByRole('link')).toEqual(expect.arrayContaining([saveButtonAndCreateNew, saveButton]));
 });
 
 test('should save member and should navigate to the members page when user clicks to save button', async () => {

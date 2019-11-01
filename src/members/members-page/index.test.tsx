@@ -39,7 +39,7 @@ test('should display a new member button', () => {
 
   const newMemberButton = queryByText(membersPage.NEW_MEMBER);
   expect(newMemberButton).toBeInTheDocument();
-  expect(queryAllByRole('button')).toContain(newMemberButton);
+  expect(queryAllByRole('link')).toContain(newMemberButton);
 });
 
 test('should navigate to new member page when user clicks to new member button', () => {

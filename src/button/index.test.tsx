@@ -6,5 +6,5 @@ test('should display text content', () => {
   const { queryByText, queryByRole } = render(<Button>Test content</Button>);
 
   expect(queryByText(/test content/i)).toBeInTheDocument();
-  expect(queryByRole('button')).toBe(queryByText(/test content/i));
+  expect(queryByRole('link')).toBe(queryByText(/test content/i));
 });

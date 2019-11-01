@@ -3,14 +3,14 @@ import { Member } from '../models/member';
 import { LanguageContext } from '../../language-context';
 import { Page } from '../../page';
 import { MemberTable } from '../member-table';
-import { Button } from '../../button';
 import { ApplicationServiceContext } from '../../application-service-context';
-import { useApplicationNavigation } from '../../services/application-navigation-hook';
+import { useApplicationNavigation } from '../../navigation/hooks/use-application-navigation';
+import { LinkToNewMemberPage } from '../../navigation/navigation-links';
 
 export function MembersPage() {
   const { membersPage } = React.useContext(LanguageContext);
   const { memberStore } = React.useContext(ApplicationServiceContext);
-  const { goToNewMemberPage, goToEditMemberPage } = useApplicationNavigation();
+  const { goToEditMemberPage } = useApplicationNavigation();
   const [members, setMembers] = React.useState<readonly Member[]>([]);
 
   React.useEffect(() => {
@@ -19,7 +19,7 @@ export function MembersPage() {
 
   return (
     <Page header={membersPage.HEADER}>
-      <Button onClick={goToNewMemberPage}>{membersPage.NEW_MEMBER}</Button>
+      <LinkToNewMemberPage>{membersPage.NEW_MEMBER}</LinkToNewMemberPage>
       <MemberTable members={members} onSelection={goToEditMemberPage} />
     </Page>
   );

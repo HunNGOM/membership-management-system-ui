@@ -4,13 +4,18 @@ let members: readonly Member[] = [];
 
 export const memberStore = {
   async createMember(member: Member) {
-    members = [
-      ...members,
-      {
-        ...member,
-        id: Math.random().toString(),
-      },
-    ];
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        members = [
+          ...members,
+          {
+            ...member,
+            id: Math.random().toString(),
+          },
+        ];
+        resolve(members);
+      }, 1000);
+    });
   },
 
   async getMembers() {
