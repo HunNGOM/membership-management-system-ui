@@ -2,50 +2,74 @@ import { LanguageContext } from '../../language-context';
 import React from 'react';
 import { Member } from '../models/member';
 import { Field } from '../../field';
+import { Datepicker } from '../../datepicker';
 
 export type Props = {
   member: Member;
   onChange(member: Member): void;
 };
 
-export function MemberForm({ member, onChange }: Props) {
+export function MemberForm({ member: initialMember, onChange }: Props) {
   const { memberForm } = React.useContext(LanguageContext);
+  const [member, setMember] = React.useState(initialMember);
 
-  const handleMemberChange = (property: keyof Member) => (newValue: string) =>
-    onChange({
-      ...member,
-      [property]: newValue,
+  const handleFieldChange = (value: unknown, name: keyof Member) => {
+    setMember((previousMember) => {
+      return {
+        ...previousMember,
+        [name]: value,
+      };
     });
+  };
+
+  React.useEffect(() => {
+    if (initialMember === member) {
+      return;
+    }
+
+    onChange(member);
+  }, [initialMember, member, onChange]);
 
   return (
     <>
-      <Field label={memberForm.NAME} isRequired={true} onChange={handleMemberChange('name')} value={member.name} />
+      <Field isRequired label={memberForm.NAME} name="name" onChange={handleFieldChange} value={member.name} />
       <Field
         label={memberForm.ORGANIZATION}
-        onChange={handleMemberChange('organization')}
+        name="organization"
+        onChange={handleFieldChange}
         value={member.organization}
       />
-      <Field label={memberForm.BIRTH_DATE} onChange={handleMemberChange('birthDate')} value={member.birthDate || ''} />
-      <Field label={memberForm.ADDRESS} onChange={handleMemberChange('address')} value={member.address || ''} />
+      <Field
+        label={memberForm.BIRTH_DATE}
+        name="birthDate"
+        onChange={handleFieldChange}
+        value={member.birthDate}
+        inputAs={Datepicker}
+      />
+      <Field label={memberForm.ADDRESS} name="address" onChange={handleFieldChange} value={member.address || ''} />
       <Field
         label={memberForm.PHONE_NUMBER}
-        onChange={handleMemberChange('phoneNumber')}
+        name="phoneNumber"
+        onChange={handleFieldChange}
         value={member.phoneNumber || ''}
       />
-      <Field label={memberForm.EMAIL} onChange={handleMemberChange('email')} value={member.email || ''} />
-      <Field label={memberForm.GENDER} onChange={handleMemberChange('gender')} value={member.gender || ''} />
+      <Field label={memberForm.EMAIL} name="email" onChange={handleFieldChange} value={member.email || ''} />
+      <Field label={memberForm.GENDER} name="gender" onChange={handleFieldChange} value={member.gender || ''} />
       <Field
+        isRequired
         label={memberForm.REGISTRATION_DATE}
-        isRequired={true}
-        onChange={handleMemberChange('registrationDate')}
-        value={member.registrationDate || ''}
+        name="registrationDate"
+        onChange={handleFieldChange}
+        value={member.registrationDate}
+        inputAs={Datepicker}
       />
       <Field
         label={memberForm.MEMBER_CATEGORY}
-        onChange={handleMemberChange('memberCategory')}
+        name="memberCategory"
+        onChange={handleFieldChange}
         value={member.memberCategory || ''}
       />
-      <Field label={memberForm.STATUS} onChange={handleMemberChange('status')} value={member.status} />
+      <Field label={memberForm.STATUS} name="status" onChange={handleFieldChange} value={member.status} />
     </>
   );
 }

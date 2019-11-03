@@ -4,7 +4,12 @@ import flatpickr from 'flatpickr';
 
 import 'flatpickr/dist/flatpickr.css';
 
-type Props = { value: DateTime; onChange?(value: DateTime): void };
+type Props = {
+  value?: DateTime | null;
+  onChange?(value: DateTime, name: string): void;
+  name: string;
+  isRequired?: boolean;
+};
 
 function useDatepicker({ value, onChange }: { value: DateTime; onChange(newValue: DateTime): void }) {
   const elementRef = React.useRef<HTMLInputElement>(null);
@@ -35,13 +40,13 @@ function useDatepicker({ value, onChange }: { value: DateTime; onChange(newValue
   return elementRef;
 }
 
-export function Datepicker({ value, onChange }: Props) {
+export function Datepicker({ value, name, isRequired, onChange }: Props) {
   const datePickerRef = useDatepicker({
-    value,
+    value: value || DateTime.local(),
     onChange(newValue: DateTime): void {
-      onChange && onChange(newValue);
+      onChange && onChange(newValue, name);
     },
   });
 
-  return <input type="text" ref={datePickerRef} />;
+  return <input type="text" name={name} required={isRequired} ref={datePickerRef} />;
 }

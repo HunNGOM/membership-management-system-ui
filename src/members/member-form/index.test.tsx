@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 import { defaultLanguageLabels } from '../../language-context';
 import { aMember } from '../../test-utils/model-builders';
 import { GetProps } from '../../utils/get-props';
+import { DateTime } from 'luxon';
 
 const { memberForm } = defaultLanguageLabels;
 
@@ -32,9 +33,9 @@ test('should display member information if it is not null', () => {
       name: 'member name',
       id: 'member id',
       organization: 'member organization',
-      registrationDate: 'member registrationDate',
+      registrationDate: DateTime.fromISO('2012-02-03'),
       status: 'member status',
-      birthDate: 'member birthDate',
+      birthDate: DateTime.fromISO('2001-02-05'),
       address: 'member address',
       phoneNumber: 'member phoneNumber',
       email: 'member email',
@@ -45,9 +46,9 @@ test('should display member information if it is not null', () => {
 
   expect(queryByDisplayValue(/member name/i)).toBeInTheDocument();
   expect(queryByDisplayValue(/member organization/i)).toBeInTheDocument();
-  expect(queryByDisplayValue(/member registrationDate/i)).toBeInTheDocument();
+  expect(queryByDisplayValue('2012-02-03')).toBeInTheDocument();
   expect(queryByDisplayValue(/member status/i)).toBeInTheDocument();
-  expect(queryByDisplayValue(/member birthDate/i)).toBeInTheDocument();
+  expect(queryByDisplayValue('2001-02-05')).toBeInTheDocument();
   expect(queryByDisplayValue(/member address/i)).toBeInTheDocument();
   expect(queryByDisplayValue(/member phoneNumber/i)).toBeInTheDocument();
   expect(queryByDisplayValue(/member email/i)).toBeInTheDocument();
@@ -60,4 +61,17 @@ test('should have required fields', () => {
 
   expect(getByLabelText(memberForm.NAME)).toHaveAttribute('required');
   expect(getByLabelText(memberForm.REGISTRATION_DATE)).toHaveAttribute('required');
+});
+
+test('should display a datepicker for registration date', () => {
+  const { queryByLabelText } = setup();
+
+  expect(queryByLabelText(memberForm.REGISTRATION_DATE)).toHaveClass('flatpickr-input');
+});
+
+test('should not call onChange on initialization', () => {
+  const onChange = jest.fn();
+  setup({ onChange });
+
+  expect(onChange).not.toBeCalled();
 });

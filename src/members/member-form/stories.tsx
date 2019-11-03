@@ -2,6 +2,7 @@ import React from 'react';
 import { MemberForm } from './index';
 import { aMember } from '../../test-utils/model-builders';
 import { action } from '@storybook/addon-actions';
+import { DateTime } from 'luxon';
 
 export default {
   title: MemberForm.name,
@@ -15,9 +16,9 @@ export const editingExistingMember = () => (
       name: 'member name',
       id: 'member id',
       organization: 'member organization',
-      registrationDate: 'member registrationDate',
+      registrationDate: DateTime.fromISO('1980-01-01'),
       status: 'member status',
-      birthDate: 'member birthDate',
+      birthDate: DateTime.fromISO('1980-01-01'),
       address: 'member address',
       phoneNumber: 'member phoneNumber',
       email: 'member email',

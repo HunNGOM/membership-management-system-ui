@@ -4,11 +4,12 @@ import { NewMemberPage } from './index';
 import { fireEvent, render, wait } from '@testing-library/react';
 import { aMemberForm } from '../../test-utils/a-member-form';
 import { Member } from '../models/member';
-import { memberStore } from '../../services/member-store';
+import { MemberStore } from '../../services/member-store';
 import { ApplicationServiceContext } from '../../application-service-context';
 import { Router } from 'react-router';
-import { History, createMemoryHistory } from 'history';
+import { createMemoryHistory, History } from 'history';
 import { aMemberStoreMock } from '../../test-utils/model-builders';
+import { DateTime } from 'luxon';
 
 const { newMemberPage } = defaultLanguageLabels;
 
@@ -60,12 +61,12 @@ test('should save member and should navigate to the members page when user click
   fillForm({
     name: 'NEW_NAME',
     organization: 'NEW_ORGANIZATION',
-    birthDate: 'NEW_BIRTH_DATE',
+    birthDate: '1990-04-26',
     address: 'NEW_ADDRESS',
     phoneNumber: 'NEW_PHONE_NUMBER',
     email: 'NEW_EMAIL',
     gender: 'NEW_GENDER',
-    registrationDate: 'NEW_REGISTRATION_DATE',
+    registrationDate: '2011-02-03',
     memberCategory: 'NEW_MEMBER_CATEGORY',
     status: 'NEW_STATUS',
   });
@@ -75,19 +76,19 @@ test('should save member and should navigate to the members page when user click
     name: 'NEW_NAME',
     id: expect.anything(),
     organization: 'NEW_ORGANIZATION',
-    birthDate: 'NEW_BIRTH_DATE',
+    birthDate: DateTime.fromISO('1990-04-26'),
     address: 'NEW_ADDRESS',
     phoneNumber: 'NEW_PHONE_NUMBER',
     email: 'NEW_EMAIL',
     gender: 'NEW_GENDER',
-    registrationDate: 'NEW_REGISTRATION_DATE',
+    registrationDate: DateTime.fromISO('2011-02-03'),
     memberCategory: 'NEW_MEMBER_CATEGORY',
     status: 'NEW_STATUS',
   } as Member);
   await wait(() => expect(history.location.pathname).toEqual('/members'));
 });
 
-test('should save member when user clicks to save and create new button', () => {
+test('should save member when user clicks to save and create new button', async () => {
   const store = aMemberStoreMock();
   const {
     getByText,
@@ -97,12 +98,12 @@ test('should save member when user clicks to save and create new button', () => 
   fillForm({
     name: 'NEW_NAME',
     organization: 'NEW_ORGANIZATION',
-    birthDate: 'NEW_BIRTH_DATE',
+    birthDate: '1999-12-13',
     address: 'NEW_ADDRESS',
     phoneNumber: 'NEW_PHONE_NUMBER',
     email: 'NEW_EMAIL',
     gender: 'NEW_GENDER',
-    registrationDate: 'NEW_REGISTRATION_DATE',
+    registrationDate: '2011-01-09',
     memberCategory: 'NEW_MEMBER_CATEGORY',
     status: 'NEW_STATUS',
   });
@@ -112,12 +113,12 @@ test('should save member when user clicks to save and create new button', () => 
     name: 'NEW_NAME',
     id: expect.anything(),
     organization: 'NEW_ORGANIZATION',
-    birthDate: 'NEW_BIRTH_DATE',
+    birthDate: DateTime.fromISO('1999-12-13'),
     address: 'NEW_ADDRESS',
     phoneNumber: 'NEW_PHONE_NUMBER',
     email: 'NEW_EMAIL',
     gender: 'NEW_GENDER',
-    registrationDate: 'NEW_REGISTRATION_DATE',
+    registrationDate: DateTime.fromISO('2011-01-09'),
     memberCategory: 'NEW_MEMBER_CATEGORY',
     status: 'NEW_STATUS',
   } as Member);

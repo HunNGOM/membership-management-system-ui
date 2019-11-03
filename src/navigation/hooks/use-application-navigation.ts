@@ -5,7 +5,7 @@ export function useApplicationNavigation() {
   const history = useHistory();
 
   return {
-    goToEditMemberPage({ id }: Member) {
+    goToViewMemberPage({ id }: Member) {
       history.push(`/member/${id}`);
     },
   };

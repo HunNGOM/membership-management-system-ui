@@ -1,23 +1,32 @@
 import React from 'react';
 
-type Props = {
+export type Props<Value> = {
   label: string;
-  value?: string;
+  name: string;
+  value?: Value | null;
   isRequired?: boolean;
-  onChange?(value: string): void;
+  onChange?(value: Value, name: string): void;
+  inputAs?(props: Omit<Props<Value>, 'inputAs'>): React.ReactElement<Props<Value>>;
 };
 
-export function Field({ label, value = '', onChange, isRequired = false }: Props) {
+export function Field<Value extends {}>({
+  inputAs = (props) => (
+    <input
+      type="text"
+      value={props.value != null ? props.value.toString() : ''}
+      name={props.name}
+      onChange={(ev) => props.onChange && props.onChange(ev.target.value, props.name)}
+      required={props.isRequired}
+    />
+  ),
+  ...props
+}: Props<Value>) {
+  const { label } = props;
   return (
     <fieldset>
       <label>
         <span>{label}</span>
-        <input
-          type="text"
-          value={value}
-          onChange={(ev) => onChange && onChange(ev.target.value)}
-          required={isRequired}
-        />
+        {inputAs(props)}
       </label>
     </fieldset>
   );

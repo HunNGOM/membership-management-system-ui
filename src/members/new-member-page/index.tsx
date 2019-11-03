@@ -5,12 +5,12 @@ import { Button } from '../../button';
 import { MemberForm } from '../member-form';
 import { ApplicationServiceContext } from '../../application-service-context';
 import { Member } from '../models/member';
-import { useApplicationNavigation } from '../../navigation/hooks/use-application-navigation';
 import { LinkToMembersPage } from '../../navigation/navigation-links';
+import { DateTime } from 'luxon';
 
 const emptyMember: Member = {
   address: '',
-  birthDate: '',
+  birthDate: DateTime.local(),
   email: '',
   gender: '',
   id: '',
@@ -18,7 +18,7 @@ const emptyMember: Member = {
   name: '',
   organization: '',
   phoneNumber: '',
-  registrationDate: '',
+  registrationDate: DateTime.local(),
   status: '',
 };
 
@@ -28,6 +28,14 @@ export function NewMemberPage() {
   const [member, setMember] = React.useState<Member>(emptyMember);
 
   const createMember = () => memberStore.createMember(member);
+
+  const handleMemberChange = (value: unknown, field: keyof Member) =>
+    setMember((prev) => {
+      return {
+        ...prev,
+        [field]: value,
+      };
+    });
 
   return (
     <Page header={newMemberPage.HEADER}>

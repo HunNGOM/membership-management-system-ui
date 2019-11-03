@@ -1,12 +1,13 @@
 import { Member } from '../members/models/member';
 import { MemberStore } from '../services/member-store';
+import { DateTime } from 'luxon';
 
 export function aMember(parameters: Partial<Member> = {}): Member {
   return {
     name: '',
     id: '',
     organization: '',
-    registrationDate: '',
+    registrationDate: DateTime.fromISO('1980-01-01'),
     status: '',
     birthDate: null,
     address: null,

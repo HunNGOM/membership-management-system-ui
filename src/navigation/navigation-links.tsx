@@ -4,7 +4,7 @@ import { Member } from '../members/models/member';
 import { Button } from '../button';
 
 function withPredefinedRoute<RouteProps>(route: (routeProps: RouteProps) => string) {
-  return (props: RouteProps & { children?: React.ReactNode; onClick?(): void | Promise<void> }) => {
+  return (props: RouteProps & { children?: React.ReactNode; onClick?(): unknown | Promise<unknown> }) => {
     const history = useHistory();
     const nextRoute = route(props);
 
@@ -26,3 +26,5 @@ const staticRoute = (route: string) => () => route;
 
 export const LinkToNewMemberPage = withPredefinedRoute(staticRoute('/member'));
 export const LinkToMembersPage = withPredefinedRoute(staticRoute('/members'));
+export const LinkToViewMemberPage = withPredefinedRoute<{ member: Member }>(({ member }) => `/member/${member.id}`);
+export const LinkToEditMemberPage = withPredefinedRoute<{ member: Member }>(({ member }) => `/member/${member.id}/edit`);

@@ -10,7 +10,7 @@ import { LinkToNewMemberPage } from '../../navigation/navigation-links';
 export function MembersPage() {
   const { membersPage } = React.useContext(LanguageContext);
   const { memberStore } = React.useContext(ApplicationServiceContext);
-  const { goToEditMemberPage } = useApplicationNavigation();
+  const { goToViewMemberPage } = useApplicationNavigation();
   const [members, setMembers] = React.useState<readonly Member[]>([]);
 
   React.useEffect(() => {
@@ -20,7 +20,7 @@ export function MembersPage() {
   return (
     <Page header={membersPage.HEADER}>
       <LinkToNewMemberPage>{membersPage.NEW_MEMBER}</LinkToNewMemberPage>
-      <MemberTable members={members} onSelection={goToEditMemberPage} />
+      <MemberTable members={members} onSelection={goToViewMemberPage} />
     </Page>
   );
 }

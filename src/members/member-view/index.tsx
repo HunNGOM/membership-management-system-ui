@@ -23,7 +23,7 @@ export function MemberView({ member }: Props) {
 
       <div>
         <strong>{memberForm.BIRTH_DATE}</strong>
-        <span>{member.birthDate}</span>
+        <span>{member.birthDate && member.birthDate.toISODate()}</span>
       </div>
 
       <div>
@@ -48,7 +48,7 @@ export function MemberView({ member }: Props) {
 
       <div>
         <strong>{memberForm.REGISTRATION_DATE}</strong>
-        <span>{member.registrationDate}</span>
+        <span>{member.registrationDate.toISODate()}</span>
       </div>
 
       <div>

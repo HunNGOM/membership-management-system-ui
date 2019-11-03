@@ -1,6 +1,8 @@
 import { fireEvent, within } from '@testing-library/react';
 import { defaultLanguageLabels } from '../language-context';
 import { Member } from '../members/models/member';
+import { act } from 'react-dom/test-utils';
+import flatpickr from 'flatpickr';
 
 export function aMemberForm(element: HTMLElement) {
   const { memberForm } = defaultLanguageLabels;
@@ -24,12 +26,24 @@ export function aMemberForm(element: HTMLElement) {
       return fields.every((field) => field != null);
     },
 
-    fillForm(member: Partial<Member>) {
+    fillForm(member: Partial<{ [memberProperty in keyof Member]: string }>) {
       const changeTextField = (label: string, value: string | null | undefined) =>
         value &&
         fireEvent.change(getByLabelText(label), {
           target: { value: value },
         });
+
+      function changeDateTimeField(label: string, value: string) {
+        act(() => {
+          const datepicker = getByLabelText(label) as HTMLInputElement & {
+            _flatpickr: flatpickr.Instance;
+          };
+          datepicker._flatpickr.setDate(value, true);
+        });
+      }
+
+      changeDateTimeField(memberForm.BIRTH_DATE, member.birthDate || '');
+      changeDateTimeField(memberForm.REGISTRATION_DATE, member.registrationDate || '');
 
       changeTextField(memberForm.NAME, member.name);
       changeTextField(memberForm.ORGANIZATION, member.organization);
@@ -38,7 +52,6 @@ export function aMemberForm(element: HTMLElement) {
       changeTextField(memberForm.PHONE_NUMBER, member.phoneNumber);
       changeTextField(memberForm.EMAIL, member.email);
       changeTextField(memberForm.GENDER, member.gender);
-      changeTextField(memberForm.REGISTRATION_DATE, member.registrationDate);
       changeTextField(memberForm.MEMBER_CATEGORY, member.memberCategory);
       changeTextField(memberForm.STATUS, member.status);
     },

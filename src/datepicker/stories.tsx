@@ -7,4 +7,6 @@ export default {
   title: Datepicker.name,
 };
 
-export const simpleDatepicker = () => <Datepicker value={DateTime.local()} onChange={action('onChange')} />;
+export const simpleDatepicker = () => (
+  <Datepicker name="datepicker" value={DateTime.local()} onChange={action('onChange')} />
+);

@@ -1,11 +1,13 @@
+import { DateTime } from 'luxon';
+
 export interface Member {
   name: string;
   id: string;
   organization: string;
-  registrationDate: string;
+  registrationDate: DateTime;
   status: string;
 
-  birthDate: string | null;
+  birthDate: DateTime | null;
   address: string | null;
   phoneNumber: string | null;
   email: string | null;

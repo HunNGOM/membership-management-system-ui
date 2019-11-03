@@ -3,6 +3,7 @@ import { MemberView, Props } from './index';
 import { render } from '@testing-library/react';
 import { defaultLanguageLabels } from '../../language-context';
 import { aMember } from '../../test-utils/model-builders';
+import { DateTime } from 'luxon';
 
 const { memberForm } = defaultLanguageLabels;
 
@@ -31,9 +32,9 @@ test('should display member information if it is not null', () => {
       name: 'member name',
       id: 'member id',
       organization: 'member organization',
-      registrationDate: 'member registrationDate',
+      registrationDate: DateTime.fromISO('2012-03-04'),
       status: 'member status',
-      birthDate: 'member birthDate',
+      birthDate: DateTime.fromISO('2012-01-04'),
       address: 'member address',
       phoneNumber: 'member phoneNumber',
       email: 'member email',
@@ -44,9 +45,9 @@ test('should display member information if it is not null', () => {
 
   expect(queryByText(/member name/i)).toBeInTheDocument();
   expect(queryByText(/member organization/i)).toBeInTheDocument();
-  expect(queryByText(/member registrationDate/i)).toBeInTheDocument();
+  expect(queryByText('2012-03-04')).toBeInTheDocument();
   expect(queryByText(/member status/i)).toBeInTheDocument();
-  expect(queryByText(/member birthDate/i)).toBeInTheDocument();
+  expect(queryByText('2012-01-04')).toBeInTheDocument();
   expect(queryByText(/member address/i)).toBeInTheDocument();
   expect(queryByText(/member phoneNumber/i)).toBeInTheDocument();
   expect(queryByText(/member email/i)).toBeInTheDocument();
