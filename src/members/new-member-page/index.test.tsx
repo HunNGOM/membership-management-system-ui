@@ -72,7 +72,7 @@ test('should save member and should navigate to the members page when user click
   });
   fireEvent.click(getByText(newMemberPage.SAVE_BUTTON));
 
-  expect(store.createMember).toBeCalledWith({
+  expect(store.saveMember).toBeCalledWith({
     name: 'NEW_NAME',
     id: expect.anything(),
     organization: 'NEW_ORGANIZATION',
@@ -109,7 +109,7 @@ test('should save member when user clicks to save and create new button', async 
   });
   fireEvent.click(getByText(newMemberPage.SAVE_BUTTON_AND_CREATE_NEW));
 
-  expect(store.createMember).toBeCalledWith({
+  expect(store.saveMember).toBeCalledWith({
     name: 'NEW_NAME',
     id: expect.anything(),
     organization: 'NEW_ORGANIZATION',

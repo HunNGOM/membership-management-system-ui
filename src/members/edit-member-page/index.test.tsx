@@ -14,11 +14,12 @@ const { editMemberPage } = defaultLanguageLabels;
 
 function setup(props: { memberStore?: MemberStore; history?: History } = {}) {
   const history = props.history || createMemoryHistory({ initialEntries: ['/findMemberById/1'] });
+  const memberStore = props.memberStore || aNeverReturningStore();
 
   const renderResult = render(
     <Router history={history}>
       <Route path="/findMemberById/:id">
-        <ApplicationServiceContext.Provider value={{ memberStore: props.memberStore || aNeverReturningStore() }}>
+        <ApplicationServiceContext.Provider value={{ memberStore }}>
           <EditMemberPage />
         </ApplicationServiceContext.Provider>
       </Route>
@@ -28,6 +29,7 @@ function setup(props: { memberStore?: MemberStore; history?: History } = {}) {
   return {
     ...renderResult,
     history,
+    memberStore,
   };
 }
 
@@ -61,7 +63,17 @@ test('should navigate to view member page if user clicks to save button', async 
   fireEvent.click(await findByText(editMemberPage.SAVE_BUTTON));
 
   expect(history.location.pathname).toEqual('/member/3');
-  expect(history.location.search).toEqual('');
+});
+
+test('should save member if user clicks to save button', async () => {
+  const { findByText, memberStore } = setup({
+    memberStore: aMemberStoreMock({ members: [aMember({ id: '3' })] }),
+    history: createMemoryHistory({ initialEntries: ['/findMemberById/3/edit'] }),
+  });
+
+  fireEvent.click(await findByText(editMemberPage.SAVE_BUTTON));
+
+  expect(memberStore.saveMember).toHaveBeenCalledWith(aMember({ id: '3' }));
 });
 
 test('should display a member based on its id', async () => {

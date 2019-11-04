@@ -27,20 +27,12 @@ export function NewMemberPage() {
   const { memberStore } = React.useContext(ApplicationServiceContext);
   const [member, setMember] = React.useState<Member>(emptyMember);
 
-  const createMember = () => memberStore.createMember(member);
-
-  const handleMemberChange = (value: unknown, field: keyof Member) =>
-    setMember((prev) => {
-      return {
-        ...prev,
-        [field]: value,
-      };
-    });
+  const saveMember = () => memberStore.saveMember(member);
 
   return (
     <Page header={newMemberPage.HEADER}>
-      <LinkToMembersPage onClick={createMember}>{newMemberPage.SAVE_BUTTON}</LinkToMembersPage>
-      <Button onClick={createMember}>{newMemberPage.SAVE_BUTTON_AND_CREATE_NEW}</Button>
+      <LinkToMembersPage onClick={saveMember}>{newMemberPage.SAVE_BUTTON}</LinkToMembersPage>
+      <Button onClick={saveMember}>{newMemberPage.SAVE_BUTTON_AND_CREATE_NEW}</Button>
       <MemberForm member={member} onChange={setMember} />
     </Page>
   );

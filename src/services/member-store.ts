@@ -3,7 +3,7 @@ import { Member } from '../members/models/member';
 let members: readonly Member[] = [];
 
 export const memberStore = {
-  async createMember(member: Member) {
+  async saveMember(member: Member) {
     return new Promise((resolve) => {
       setTimeout(() => {
         members = [

@@ -25,7 +25,7 @@ export function aNeverReturningStore() {
       return new Promise<readonly Member[]>(() => {});
     },
 
-    async createMember() {
+    async saveMember() {
       return new Promise<void>(() => {});
     },
   } as MemberStore;
@@ -33,7 +33,7 @@ export function aNeverReturningStore() {
 
 export const aMemberStoreMock = ({ members = [] }: { members?: readonly Member[] } = {}): MemberStore => {
   return {
-    createMember: jest.fn(() => Promise.resolve()),
+    saveMember: jest.fn(() => Promise.resolve()),
     getMembers: jest.fn(async () => members),
   };
 };
