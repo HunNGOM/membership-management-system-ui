@@ -1,5 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
+import { Application } from './application';
+import { BrowserRouter } from 'react-router-dom';
 
-ReactDOM.render(<div>Hello World</div>, document.getElementById('root'));
+ReactDOM.render(
+  <BrowserRouter>
+    <Application />
+  </BrowserRouter>,
+  document.getElementById('root'),
+);

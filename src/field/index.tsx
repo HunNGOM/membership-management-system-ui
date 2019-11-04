@@ -9,8 +9,8 @@ export type Props<Value> = {
   inputAs?(props: Omit<Props<Value>, 'inputAs'>): React.ReactElement<Props<Value>>;
 };
 
-export function Field<Value extends {}>({
-  inputAs = (props) => (
+export function Field<Value>({
+  inputAs = (props: Props<any>) => (
     <input
       type="text"
       value={props.value != null ? props.value.toString() : ''}
