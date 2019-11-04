@@ -6,6 +6,8 @@ import { MemberTable } from '../member-table';
 import { ApplicationServiceContext } from '../../application-service-context';
 import { useApplicationNavigation } from '../../navigation/hooks/use-application-navigation';
 import { LinkToNewMemberPage } from '../../navigation/navigation-links';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
 export function MembersPage() {
   const { membersPage } = React.useContext(LanguageContext);
@@ -19,7 +21,9 @@ export function MembersPage() {
 
   return (
     <Page header={membersPage.HEADER}>
-      <LinkToNewMemberPage>{membersPage.NEW_MEMBER}</LinkToNewMemberPage>
+      <LinkToNewMemberPage>
+        <FontAwesomeIcon icon={faUserPlus} /> {membersPage.NEW_MEMBER}
+      </LinkToNewMemberPage>
       <MemberTable members={members} onSelection={goToViewMemberPage} />
     </Page>
   );

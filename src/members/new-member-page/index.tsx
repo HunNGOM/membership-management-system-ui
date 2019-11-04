@@ -5,8 +5,10 @@ import { Button } from '../../button';
 import { MemberForm } from '../member-form';
 import { ApplicationServiceContext } from '../../application-service-context';
 import { Member } from '../models/member';
-import { LinkToMembersPage } from '../../navigation/navigation-links';
+import { LinkToMembersPage, LinkToViewMemberPage } from '../../navigation/navigation-links';
 import { DateTime } from 'luxon';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const emptyMember: Member = {
   address: '',
@@ -31,7 +33,9 @@ export function NewMemberPage() {
 
   return (
     <Page header={newMemberPage.HEADER}>
-      <LinkToMembersPage onClick={saveMember}>{newMemberPage.SAVE_BUTTON}</LinkToMembersPage>
+      <LinkToMembersPage onClick={saveMember}>
+        <FontAwesomeIcon icon={faCheck} /> {newMemberPage.SAVE_BUTTON}
+      </LinkToMembersPage>
       <Button onClick={saveMember}>{newMemberPage.SAVE_BUTTON_AND_CREATE_NEW}</Button>
       <MemberForm member={member} onChange={setMember} />
     </Page>

@@ -6,6 +6,8 @@ import { useMemberFromParams } from '../member-page';
 import { MemberForm } from '../member-form';
 import { LinkToViewMemberPage } from '../../navigation/navigation-links';
 import { ApplicationServiceContext } from '../../application-service-context';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 export function EditMemberPage() {
   const { editMemberPage } = React.useContext(LanguageContext);
@@ -17,7 +19,7 @@ export function EditMemberPage() {
       {member && (
         <>
           <LinkToViewMemberPage member={member} onClick={() => memberStore.saveMember(member)}>
-            {editMemberPage.SAVE_BUTTON}
+            <FontAwesomeIcon icon={faCheck} /> {editMemberPage.SAVE_BUTTON}
           </LinkToViewMemberPage>
           <Button>{editMemberPage.PAY_MEMBERSHIP_FEE_BUTTON}</Button>
           <Button>{editMemberPage.REMOVE_MEMBER_BUTTON}</Button>
