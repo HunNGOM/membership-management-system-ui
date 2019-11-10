@@ -28,7 +28,7 @@ function useDatepicker({ value, onChange }: { value: DateTime; onChange(newValue
     });
     setInstance(datePickerInstance);
     return () => datePickerInstance.destroy();
-  }, [elementRef]);
+  }, [elementRef, onChange]);
 
   React.useEffect(() => {
     if (instance == null) {

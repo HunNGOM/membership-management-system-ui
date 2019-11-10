@@ -45,7 +45,7 @@ test('should have control buttons', async () => {
     history: createMemoryHistory({ initialEntries: ['/findMemberById/2'] }),
   });
 
-  expect((await findAllByRole('link')).map(toTextContent)).toEqual(
+  expect((await findAllByRole('button')).map(toTextContent)).toEqual(
     expect.arrayContaining([
       editMemberPage.SAVE_BUTTON,
       editMemberPage.PAY_MEMBERSHIP_FEE_BUTTON,

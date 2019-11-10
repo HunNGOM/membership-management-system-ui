@@ -42,7 +42,7 @@ test('should have control buttons', async () => {
     history: createMemoryHistory({ initialEntries: ['/findMemberById/4'] }),
   });
 
-  expect((await findAllByRole('link')).map(toTextContent)).toEqual(
+  expect((await findAllByRole('button')).map(toTextContent)).toEqual(
     expect.arrayContaining([memberPage.MODIFY_BUTTON, memberPage.PAY_MEMBERSHIP_FEE_BUTTON, memberPage.EXPORT_BUTTON]),
   );
 });

@@ -5,7 +5,7 @@ import { Button } from '../../button';
 import { MemberForm } from '../member-form';
 import { ApplicationServiceContext } from '../../application-service-context';
 import { Member } from '../models/member';
-import { LinkToMembersPage, LinkToViewMemberPage } from '../../navigation/navigation-links';
+import { LinkToMembersPage } from '../../navigation/navigation-links';
 import { DateTime } from 'luxon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
@@ -36,7 +36,9 @@ export function NewMemberPage() {
       <LinkToMembersPage onClick={saveMember}>
         <FontAwesomeIcon icon={faCheck} /> {newMemberPage.SAVE_BUTTON}
       </LinkToMembersPage>
-      <Button type="secondary" onClick={saveMember}>{newMemberPage.SAVE_BUTTON_AND_CREATE_NEW}</Button>
+      <Button type="secondary" onClick={saveMember}>
+        {newMemberPage.SAVE_BUTTON_AND_CREATE_NEW}
+      </Button>
       <MemberForm member={member} onChange={setMember} />
     </Page>
   );

@@ -44,8 +44,8 @@ export function Button({ type, children, onClick }: Props) {
   };
 
   return (
-    <a href="#" onClick={handleClick} className={getClassName(type)}>
+    <button onClick={handleClick} className={getClassName(type)}>
       {children}
-    </a>
+    </button>
   );
 }
