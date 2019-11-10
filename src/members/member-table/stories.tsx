@@ -17,7 +17,7 @@ export const tableWithAMember = () => (
         organization: 'member organization',
         registrationDate: DateTime.local(),
         status: 'member status',
-        birthDate: 'member birthDate',
+        birthDate: DateTime.local(),
         address: 'member address',
         phoneNumber: 'member phoneNumber',
         email: 'member email',

@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 import flatpickr from 'flatpickr';
 
 import 'flatpickr/dist/flatpickr.css';
+import { TextBox } from '../textbox';
 
 type Props = {
   value?: DateTime | null;
@@ -48,5 +49,5 @@ export function Datepicker({ value, name, isRequired, onChange }: Props) {
     },
   });
 
-  return <input type="text" name={name} required={isRequired} ref={datePickerRef} />;
+  return <TextBox name={name} isRequired={isRequired} ref={datePickerRef} value={''} />;
 }

@@ -10,6 +10,7 @@ function withPredefinedRoute<RouteProps>(route: (routeProps: RouteProps) => stri
 
     return (
       <Button
+        type="primary"
         onClick={async () => {
           if (props.onClick) {
             await Promise.resolve(props.onClick());

@@ -27,11 +27,15 @@ export function aMemberForm(element: HTMLElement) {
     },
 
     fillForm(member: Partial<{ [memberProperty in keyof Member]: string }>) {
-      const changeTextField = (label: string, value: string | null | undefined) =>
-        value &&
-        fireEvent.change(getByLabelText(label), {
-          target: { value: value },
-        });
+      const changeTextField = (label: string, value: string | null | undefined) => {
+        const input = getByLabelText(label) as HTMLElement;
+        return (
+          value &&
+          fireEvent.change(input, {
+            target: { value: value },
+          })
+        );
+      };
 
       function changeDateTimeField(label: string, value: string) {
         act(() => {

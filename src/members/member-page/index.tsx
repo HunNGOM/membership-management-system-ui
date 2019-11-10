@@ -34,9 +34,9 @@ export function MemberPage() {
     <Page header={memberPage.HEADER}>
       {member && (
         <>
-          <Button>{memberPage.PAY_MEMBERSHIP_FEE_BUTTON}</Button>
+          <Button type="secondary">{memberPage.PAY_MEMBERSHIP_FEE_BUTTON}</Button>
           <LinkToEditMemberPage member={member}>{memberPage.MODIFY_BUTTON}</LinkToEditMemberPage>
-          <Button>{memberPage.EXPORT_BUTTON}</Button>
+          <Button type="secondary">{memberPage.EXPORT_BUTTON}</Button>
           <MemberView member={member} />
         </>
       )}

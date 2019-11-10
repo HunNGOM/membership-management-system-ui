@@ -20,6 +20,7 @@
     "react-dom": "^16.11.0",
     "react-router-dom": "5.1.2",
     "react-scripts": "3.2.0",
+    "reset-css": "5.0.1",
     "typescript": "3.6.4"
   },
   "scripts": {
@@ -50,6 +51,7 @@
     "@babel/plugin-proposal-optional-chaining": "7.6.0",
     "@storybook/addon-actions": "5.2.5",
     "@storybook/addon-links": "5.2.5",
+    "@storybook/addon-viewport": "5.2.5",
     "@storybook/addons": "5.2.5",
     "@storybook/react": "5.2.5",
     "@testing-library/jest-dom": "4.1.2",

@@ -1,6 +1,7 @@
 import React from 'react';
 import { MemberView } from './index';
 import { aMember } from '../../test-utils/model-builders';
+import { DateTime } from 'luxon';
 
 export default {
   title: MemberView.name,
@@ -12,9 +13,9 @@ export const viewExistingMember = () => (
       name: 'member name',
       id: 'member id',
       organization: 'member organization',
-      registrationDate: 'member registrationDate',
+      registrationDate: DateTime.local(),
       status: 'member status',
-      birthDate: 'member birthDate',
+      birthDate: DateTime.local(),
       address: 'member address',
       phoneNumber: 'member phoneNumber',
       email: 'member email',

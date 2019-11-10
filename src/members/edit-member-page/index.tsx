@@ -19,10 +19,10 @@ export function EditMemberPage() {
       {member && (
         <>
           <LinkToViewMemberPage member={member} onClick={() => memberStore.saveMember(member)}>
-            <FontAwesomeIcon icon={faCheck} /> {editMemberPage.SAVE_BUTTON}
+            <FontAwesomeIcon icon={faCheck} /> <span>{editMemberPage.SAVE_BUTTON}</span>
           </LinkToViewMemberPage>
-          <Button>{editMemberPage.PAY_MEMBERSHIP_FEE_BUTTON}</Button>
-          <Button>{editMemberPage.REMOVE_MEMBER_BUTTON}</Button>
+          <Button type="secondary">{editMemberPage.PAY_MEMBERSHIP_FEE_BUTTON}</Button>
+          <Button type="secondary">{editMemberPage.REMOVE_MEMBER_BUTTON}</Button>
           <MemberForm member={member} onChange={() => {}} />
         </>
       )}

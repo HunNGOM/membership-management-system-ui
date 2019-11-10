@@ -1,3 +1,4 @@
 export function toTextContent(el: HTMLElement) {
-  return el.textContent;
+  const textContent = el.textContent || '';
+  return textContent.trim();
 }

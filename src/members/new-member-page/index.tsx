@@ -36,7 +36,7 @@ export function NewMemberPage() {
       <LinkToMembersPage onClick={saveMember}>
         <FontAwesomeIcon icon={faCheck} /> {newMemberPage.SAVE_BUTTON}
       </LinkToMembersPage>
-      <Button onClick={saveMember}>{newMemberPage.SAVE_BUTTON_AND_CREATE_NEW}</Button>
+      <Button type="secondary" onClick={saveMember}>{newMemberPage.SAVE_BUTTON_AND_CREATE_NEW}</Button>
       <MemberForm member={member} onChange={setMember} />
     </Page>
   );

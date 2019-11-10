@@ -12,8 +12,8 @@ function setup(props: Partial<GetProps<typeof MemberForm>> = {}) {
   return render(<MemberForm member={aMember()} onChange={() => {}} {...props} />);
 }
 
-test('should display member fields', () => {
-  const { queryByLabelText } = setup();
+test('should display member fields and their group names', () => {
+  const { queryByLabelText, queryByText } = setup();
 
   expect(queryByLabelText(memberForm.NAME)).toBeInTheDocument();
   expect(queryByLabelText(memberForm.ORGANIZATION)).toBeInTheDocument();
@@ -25,6 +25,8 @@ test('should display member fields', () => {
   expect(queryByLabelText(memberForm.REGISTRATION_DATE)).toBeInTheDocument();
   expect(queryByLabelText(memberForm.MEMBER_CATEGORY)).toBeInTheDocument();
   expect(queryByLabelText(memberForm.STATUS)).toBeInTheDocument();
+  expect(queryByText(memberForm.PERSONAL_GROUP_NAME)).toBeInTheDocument();
+  expect(queryByText(memberForm.MEMBERSHIP_GROUP_NAME)).toBeInTheDocument();
 });
 
 test('should display member information if it is not null', () => {
