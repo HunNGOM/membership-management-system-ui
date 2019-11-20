@@ -4,13 +4,18 @@ import { fireEvent, render } from '@testing-library/react';
 import { defaultLanguageLabels } from '../language-context';
 import { createMemoryHistory, History } from 'history';
 import { Router } from 'react-router-dom';
+import { GetProps } from '../utils/get-props';
 
 const { applicationSidebar } = defaultLanguageLabels;
 
-function setup({ history = createMemoryHistory() }: { history?: History } = {}) {
+function setup(
+  { history = createMemoryHistory(), ...props }: { history?: History } & GetProps<typeof ApplicationSidebar> = {
+    name: '',
+  },
+) {
   const renderResult = render(
     <Router history={history}>
-      <ApplicationSidebar />
+      <ApplicationSidebar {...props} />
     </Router>,
   );
 
@@ -30,8 +35,18 @@ test('should list application menu items', () => {
   expect(queryByText(applicationSidebar.REPORTS)).toBeInTheDocument();
 });
 
+test('should display application name', () => {
+  const { queryByText, queryByRole } = setup({
+    name: 'Test Application',
+  });
+
+  const header = queryByText(/test application/i);
+  expect(header).toBeInTheDocument();
+  expect(queryByRole('heading')).toBe(header);
+});
+
 test('should able to navigate to members page if user selects members', () => {
-  const { getByText, history } = setup({ history: createMemoryHistory() });
+  const { getByText, history } = setup({ history: createMemoryHistory(), name: '' });
 
   fireEvent.click(getByText(applicationSidebar.MEMBERS));
 

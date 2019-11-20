@@ -20,10 +20,13 @@ export function MembersPage() {
   }, [memberStore]);
 
   return (
-    <Page header={membersPage.HEADER}>
-      <LinkToNewMemberPage>
-        <FontAwesomeIcon icon={faUserPlus} /> {membersPage.NEW_MEMBER}
-      </LinkToNewMemberPage>
+    <Page
+      name={membersPage.HEADER}
+      pageControlsAs={
+        <LinkToNewMemberPage>
+          <FontAwesomeIcon icon={faUserPlus} /> {membersPage.NEW_MEMBER}
+        </LinkToNewMemberPage>
+      }>
       <MemberTable members={members} onSelection={goToViewMemberPage} />
     </Page>
   );

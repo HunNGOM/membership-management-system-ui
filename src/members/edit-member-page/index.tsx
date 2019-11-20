@@ -15,17 +15,20 @@ export function EditMemberPage() {
   const member = useMemberFromParams();
 
   return (
-    <Page header={editMemberPage.HEADER}>
-      {member && (
-        <>
-          <LinkToViewMemberPage member={member} onClick={() => memberStore.saveMember(member)}>
-            <FontAwesomeIcon icon={faCheck} /> <span>{editMemberPage.SAVE_BUTTON}</span>
-          </LinkToViewMemberPage>
-          <Button type="secondary">{editMemberPage.PAY_MEMBERSHIP_FEE_BUTTON}</Button>
-          <Button type="secondary">{editMemberPage.REMOVE_MEMBER_BUTTON}</Button>
-          <MemberForm member={member} onChange={() => {}} />
-        </>
-      )}
+    <Page
+      name={editMemberPage.HEADER}
+      pageControlsAs={
+        member && (
+          <>
+            <LinkToViewMemberPage member={member} onClick={() => memberStore.saveMember(member)}>
+              <FontAwesomeIcon icon={faCheck} /> <span>{editMemberPage.SAVE_BUTTON}</span>
+            </LinkToViewMemberPage>
+            <Button type="secondary">{editMemberPage.PAY_MEMBERSHIP_FEE_BUTTON}</Button>
+            <Button type="secondary">{editMemberPage.REMOVE_MEMBER_BUTTON}</Button>
+          </>
+        )
+      }>
+      {member && <MemberForm member={member} onChange={() => {}} />}
     </Page>
   );
 }

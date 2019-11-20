@@ -1,4 +1,5 @@
 import React from 'react';
+import { cx } from 'emotion';
 
 type RadioButtonOption = { label: string; value: string };
 
@@ -10,18 +11,25 @@ type Props = {
 
 export function RadioButtonGroup(props: Props) {
   return (
-    <>
-      {props.items.map((item, index) => (
-        <label key={index}>
-          <input
-            type="radio"
-            name={props.name}
-            value={item.value}
-            onChange={() => props.onChange && props.onChange(item, props.name)}
-          />
-          <span>{item.label}</span>
-        </label>
-      ))}
-    </>
+    <div className="inline-block border rounded shadow bg-white">
+      {props.items.map((item, index) => {
+        const isFirstElement = index === 0;
+
+        return (
+          <label
+            key={index}
+            className={cx('inline-block cursor-pointer px-4 py-2 text-sm', !isFirstElement && 'border-l')}>
+            <input
+              type="radio"
+              name={props.name}
+              value={item.value}
+              className="hidden"
+              onChange={() => props.onChange && props.onChange(item, props.name)}
+            />
+            <span>{item.label}</span>
+          </label>
+        );
+      })}
+    </div>
   );
 }

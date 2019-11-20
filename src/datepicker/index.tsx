@@ -13,22 +13,25 @@ type Props = {
 };
 
 function useDatepicker({ value, onChange }: { value: DateTime; onChange(newValue: DateTime): void }) {
-  const elementRef = React.useRef<HTMLInputElement>(null);
+  const elementRef = React.useRef<HTMLInputElement>();
   const [instance, setInstance] = React.useState<flatpickr.Instance | null>(null);
+  const onChangeRef = React.useRef(onChange);
 
   React.useEffect(() => {
-    if (elementRef.current == null) {
-      return;
-    }
+    onChangeRef.current = onChange;
+  }, [onChange]);
 
-    const datePickerInstance = flatpickr(elementRef.current, {
+  React.useEffect(() => {
+    const datePickerInstance = flatpickr(elementRef.current!, {
       onChange([currentDate]) {
-        onChange(DateTime.fromJSDate(currentDate));
+        onChangeRef.current(DateTime.fromJSDate(currentDate));
       },
     });
+
     setInstance(datePickerInstance);
+
     return () => datePickerInstance.destroy();
-  }, [elementRef, onChange]);
+  }, []);
 
   React.useEffect(() => {
     if (instance == null) {

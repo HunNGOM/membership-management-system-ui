@@ -3,68 +3,13 @@ import React from 'react';
 import { Member } from '../models/member';
 import { Field } from '../../field';
 import { Datepicker } from '../../datepicker';
-import { css, Interpolation } from 'emotion';
-import { greys } from '../../global-styles';
 import { DateTime } from 'luxon';
+import { Fieldset } from '../../fieldset';
 
 export type Props = {
   member: Member;
   onChange(member: Member): void;
 };
-
-const stylesheets = {
-  container: css({
-    // display: 'grid',
-    display: 'contents',
-
-    gridTemplateColumns: '1fr 2fr',
-    gridTemplateRows: 'auto 1fr',
-    columnGap: '10px',
-    fontSize: '0.875rem',
-  } as Interpolation),
-
-  fieldset: css({
-    display: 'contents',
-  } as Interpolation),
-
-  legend: css({
-    fontWeight: 700,
-    color: greys.g800,
-    lineHeight: 1.5,
-    marginBottom: 5,
-  } as Interpolation),
-
-  fields: css({
-    display: 'flex',
-    flexDirection: 'column',
-    gridRow: 'span 2',
-  } as Interpolation),
-
-  description: css({
-    gridRow: 2,
-    color: '#8D8D8D',
-  } as Interpolation),
-};
-
-function Fieldset({
-  header,
-  description,
-  children,
-}: {
-  header: string;
-  description: string;
-  children?: React.ReactNode;
-}) {
-  return (
-    <div className={stylesheets.container}>
-      <fieldset className={stylesheets.fieldset}>
-        <legend className={stylesheets.legend}>{header}</legend>
-        <div className={stylesheets.description}>{description}</div>
-        <div className={stylesheets.fields}>{children}</div>
-      </fieldset>
-    </div>
-  );
-}
 
 export function MemberForm({ member: initialMember, onChange }: Props) {
   const { memberForm } = React.useContext(LanguageContext);
@@ -88,7 +33,7 @@ export function MemberForm({ member: initialMember, onChange }: Props) {
   }, [initialMember, member, onChange]);
 
   return (
-    <div className={css({})}>
+    <div>
       <Fieldset header={memberForm.PERSONAL_GROUP_NAME} description={memberForm.PERSONAL_GROUP_NAME_DESCRIPTION}>
         <Field isRequired label={memberForm.NAME} name="name" onChange={handleFieldChange} value={member.name} />
         <Field<DateTime>

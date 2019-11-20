@@ -2,7 +2,7 @@ import React from 'react';
 import { Fieldset } from './index';
 import { render } from '@testing-library/react';
 
-test('should display legend, header and children', () => {
+test('should display legend, name and children', () => {
   const { queryByText } = render(
     <Fieldset header="test header" description="test description">
       <span>test content</span>

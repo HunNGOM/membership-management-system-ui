@@ -32,13 +32,18 @@ export function NewMemberPage() {
   const saveMember = () => memberStore.saveMember(member);
 
   return (
-    <Page header={newMemberPage.HEADER}>
-      <LinkToMembersPage onClick={saveMember}>
-        <FontAwesomeIcon icon={faCheck} /> {newMemberPage.SAVE_BUTTON}
-      </LinkToMembersPage>
-      <Button type="secondary" onClick={saveMember}>
-        {newMemberPage.SAVE_BUTTON_AND_CREATE_NEW}
-      </Button>
+    <Page
+      name={newMemberPage.HEADER}
+      pageControlsAs={
+        <>
+          <LinkToMembersPage onClick={saveMember}>
+            <FontAwesomeIcon icon={faCheck} /> {newMemberPage.SAVE_BUTTON}
+          </LinkToMembersPage>
+          <Button type="secondary" onClick={saveMember}>
+            {newMemberPage.SAVE_BUTTON_AND_CREATE_NEW}
+          </Button>
+        </>
+      }>
       <MemberForm member={member} onChange={setMember} />
     </Page>
   );

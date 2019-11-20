@@ -6,20 +6,17 @@ import { NewMemberPage } from '../members/new-member-page';
 import { MemberPage } from '../members/member-page';
 import { EditMemberPage } from '../members/edit-member-page';
 import { css, Interpolation } from 'emotion';
-
-const stylesheets = {
-  container: css({
-    height: '100%',
-    display: 'grid',
-    gridTemplateColumns: '300px 1fr',
-  } as Interpolation),
-};
+import { LanguageContext } from '../language-context';
 
 export function Application() {
+  const {
+    applicationSidebar: { APPLICATION_NAME },
+  } = React.useContext(LanguageContext);
+
   return (
-    <div className={stylesheets.container}>
-      <ApplicationSidebar />
-      <main>
+    <div className="flex flex-col sm:flex-row h-screen">
+      <ApplicationSidebar name={APPLICATION_NAME} />
+      <main className="sm:flex-1">
         <Switch>
           <Route path="/members">
             <MembersPage />

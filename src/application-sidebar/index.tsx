@@ -1,20 +1,23 @@
 import React from 'react';
 import { LanguageContext } from '../language-context';
-import { LinkToMembersPage } from '../navigation/navigation-links';
+import { useApplicationNavigation } from '../navigation/hooks/use-application-navigation';
+import { ApplicationMenuItem } from '../application-menu-item';
 
-export function ApplicationSidebar() {
+export function ApplicationSidebar({ name }: { name: string }) {
   const { applicationSidebar } = React.useContext(LanguageContext);
+  const {
+    links: { membersPageLink },
+  } = useApplicationNavigation();
 
   return (
-    <nav>
+    <nav className="sm:w-56 bg-blue-800 text-white px-4">
+      <h1>{name}</h1>
       <ul>
-        <li>
-          <LinkToMembersPage>{applicationSidebar.MEMBERS}</LinkToMembersPage>
-        </li>
-        <li>{applicationSidebar.MEMBERSHIP_FEE}</li>
-        <li>{applicationSidebar.ORGANIZATION_DETAILS}</li>
-        <li>{applicationSidebar.ORGANIZATIONS}</li>
-        <li>{applicationSidebar.REPORTS}</li>
+        <ApplicationMenuItem href={membersPageLink}>{applicationSidebar.MEMBERS}</ApplicationMenuItem>
+        <ApplicationMenuItem href="">{applicationSidebar.MEMBERSHIP_FEE}</ApplicationMenuItem>
+        <ApplicationMenuItem href="">{applicationSidebar.ORGANIZATION_DETAILS}</ApplicationMenuItem>
+        <ApplicationMenuItem href="">{applicationSidebar.ORGANIZATIONS}</ApplicationMenuItem>
+        <ApplicationMenuItem href="">{applicationSidebar.REPORTS}</ApplicationMenuItem>
       </ul>
     </nav>
   );

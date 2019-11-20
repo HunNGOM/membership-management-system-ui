@@ -1,7 +1,4 @@
 import React from 'react';
-import { css, Interpolation } from 'emotion';
-import { greys } from '../global-styles';
-import { withBorder } from '../utils/styling-utils';
 import { TextBox } from '../textbox';
 
 export type Props<Value> = {
@@ -11,29 +8,6 @@ export type Props<Value> = {
   isRequired?: boolean;
   onChange?(value: Value, name: string): void;
   inputAs?(props: Omit<Props<Value>, 'inputAs'>): React.ReactElement<Props<Value>>;
-};
-
-const stylesheets = {
-  label: css({
-    fontWeight: 600,
-    display: 'block',
-    lineHeight: 1.5,
-    marginBottom: 5,
-  } as Interpolation),
-
-  textBox: css({
-    backgroundColor: greys.g100WithOpacity33p,
-    ...withBorder({
-      borderColor: greys.g300WithOpacity33p,
-      borderRadius: 3,
-      borderWidth: 1,
-    }),
-    height: 25,
-    paddingLeft: 10,
-    paddingRight: 10,
-    marginBottom: 10,
-    width: '100%',
-  } as Interpolation),
 };
 
 export function Field<Value>({
@@ -49,8 +23,8 @@ export function Field<Value>({
 }: Props<Value>) {
   const { label } = props;
   return (
-    <label>
-      <span className={stylesheets.label}>{label}</span>
+    <label className="mb-4 block">
+      <span className="text-sm sm:px-1 py-2 inline-block font-semibold">{label}</span>
       {inputAs(props)}
     </label>
   );

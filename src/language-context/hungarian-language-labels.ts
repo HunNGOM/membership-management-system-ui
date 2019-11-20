@@ -7,6 +7,7 @@ export const hungarianLanguageLabels: typeof defaultLanguageLabels = {
     ORGANIZATION_DETAILS: 'Alapszervezet adatai',
     ORGANIZATIONS: 'Alapszervezetek',
     REPORTS: 'Riportok',
+    APPLICATION_NAME: 'smartMembers',
   },
   memberForm: {
     NAME: 'Teljes név',

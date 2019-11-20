@@ -1,10 +1,15 @@
 import React from 'react';
 import { Page } from './index';
+import { Button } from '../button';
 
 export default {
   title: Page.name,
 };
 
-export const simplePageWithHeader = () => <Page header="test header" />;
+export const simplePageWithHeader = () => <Page name="test header" />;
 
-export const pageWithContent = () => <Page header="test header">test content</Page>;
+export const complexPage = () => (
+  <Page name="test header" pageControlsAs={<Button type="primary">Click here</Button>}>
+    test content
+  </Page>
+);

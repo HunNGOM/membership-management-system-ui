@@ -18,16 +18,28 @@ function setup({ actualRoute = '/' }: { actualRoute?: string } = {}) {
   );
 }
 
+test('should display application name', () => {
+  const { getByRole } = setup();
+
+  const withinNavigation = within(getByRole('navigation'));
+
+  expect(withinNavigation.getByRole('heading')).toHaveTextContent(applicationSidebar.APPLICATION_NAME);
+});
+
 test('should display members list by default', () => {
   const { getByRole } = setup({ actualRoute: '/' });
 
-  expect(getByRole('heading')).toHaveTextContent(membersPage.HEADER);
+  const withinMain = within(getByRole('main'));
+
+  expect(withinMain.getByRole('heading')).toHaveTextContent(membersPage.HEADER);
 });
 
 test('should display members list when route is /members', () => {
   const { getByRole } = setup({ actualRoute: '/members' });
 
-  expect(getByRole('heading')).toHaveTextContent(membersPage.HEADER);
+  const withinMain = within(getByRole('main'));
+
+  expect(withinMain.getByRole('heading')).toHaveTextContent(membersPage.HEADER);
 });
 
 test('should able to navigate to new member form from members list', () => {
@@ -35,25 +47,29 @@ test('should able to navigate to new member form from members list', () => {
 
   fireEvent.click(getByText(membersPage.NEW_MEMBER));
 
-  expect(getByRole('heading')).toHaveTextContent(newMemberPage.HEADER);
+  const withinMain = within(getByRole('main'));
+  expect(withinMain.getByRole('heading')).toHaveTextContent(newMemberPage.HEADER);
 });
 
 test('should display new member form when route is /member', () => {
   const { getByRole } = setup({ actualRoute: '/member' });
 
-  expect(getByRole('heading')).toHaveTextContent(newMemberPage.HEADER);
+  const withinMain = within(getByRole('main'));
+  expect(withinMain.getByRole('heading')).toHaveTextContent(newMemberPage.HEADER);
 });
 
 test('should display detailed member view when route is /member/:id', () => {
   const { getByRole } = setup({ actualRoute: '/member/3' });
 
-  expect(getByRole('heading')).toHaveTextContent(memberPage.HEADER);
+  const withinMain = within(getByRole('main'));
+  expect(withinMain.getByRole('heading')).toHaveTextContent(memberPage.HEADER);
 });
 
 test('should display detailed member editor when route is /member/:id/edit', () => {
   const { getByRole } = setup({ actualRoute: '/member/3/edit' });
 
-  expect(getByRole('heading')).toHaveTextContent(editMemberPage.HEADER);
+  const withinMain = within(getByRole('main'));
+  expect(withinMain.getByRole('heading')).toHaveTextContent(editMemberPage.HEADER);
 });
 
 test('should display application menu', () => {

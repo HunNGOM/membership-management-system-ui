@@ -33,7 +33,7 @@ function setup(props: { memberStore?: MemberStore; history?: History } = {}) {
   };
 }
 
-test('should have a header', () => {
+test('should have a name', () => {
   const { queryByRole } = setup();
 
   expect(queryByRole('heading')).toHaveTextContent(editMemberPage.HEADER);

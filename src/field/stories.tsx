@@ -21,3 +21,17 @@ export const basicFieldWithDatepicker = () => (
     onChange={action('onChange')}
   />
 );
+
+export const textFields = () => (
+  <>
+    <Field name="text" label="Text field" value="test field" onChange={action('simple field')} />
+    <hr />
+    <Field<DateTime>
+      inputAs={Datepicker}
+      name="datepicker"
+      label="Datepicker field"
+      value={DateTime.local(2001, 2, 23)}
+      onChange={action('datepicker')}
+    />
+  </>
+);

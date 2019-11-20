@@ -5,6 +5,10 @@ export function useApplicationNavigation() {
   const history = useHistory();
 
   return {
+    links: {
+      membersPageLink: '/members'
+    },
+
     goToViewMemberPage({ id }: Member) {
       history.push(`/member/${id}`);
     },

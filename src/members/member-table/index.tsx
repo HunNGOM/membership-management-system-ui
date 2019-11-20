@@ -11,22 +11,24 @@ export function MemberTable({ members, onSelection }: Props) {
   const { memberTable } = React.useContext(LanguageContext);
 
   return (
-    <table>
+    <table className="table-auto">
       <thead>
-        <tr>
-          <th>{memberTable.NAME}</th>
-          <th>{memberTable.ID}</th>
-          <th>{memberTable.ORGANIZATION}</th>
-          <th>{memberTable.ACTIONS}</th>
+        <tr className="bg-gray-400">
+          <th className="border border-black px-2 py-2">{memberTable.NAME}</th>
+          <th className="border border-black px-2 py-2">{memberTable.ID}</th>
+          <th className="border border-black px-2 py-2">{memberTable.ORGANIZATION}</th>
+          <th className="border border-black px-2 py-2">{memberTable.ACTIONS}</th>
         </tr>
       </thead>
       <tbody>
         {members.map((member, index) => (
           <tr key={index}>
-            <td onClick={() => onSelection(member)}>{member.name}</td>
-            <td>{member.id}</td>
-            <td>{member.organization}</td>
-            <td></td>
+            <td className="border px-2 py-2" onClick={() => onSelection(member)}>
+              {member.name}
+            </td>
+            <td className="border px-2 py-2">{member.id}</td>
+            <td className="border px-2 py-2">{member.organization}</td>
+            <td className="border px-2 py-2"></td>
           </tr>
         ))}
       </tbody>

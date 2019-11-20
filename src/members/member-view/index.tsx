@@ -6,60 +6,31 @@ export type Props = {
   member: Member;
 };
 
+function FieldView({ label, value }: { label: string; value: string | null }) {
+  return (
+    <div className="flex py-2 sm:flex-row flex-col">
+      <strong className="inline-block sm:w-1/5 sm:text-right">{label}</strong>
+      <span>:</span>
+      <span className="sm:pl-4 w-4/5">{value}</span>
+    </div>
+  );
+}
+
 export function MemberView({ member }: Props) {
   const { memberForm } = React.useContext(LanguageContext);
 
   return (
     <>
-      <div>
-        <strong>{memberForm.NAME}</strong>
-        <span>{member.name}</span>
-      </div>
-
-      <div>
-        <strong>{memberForm.ORGANIZATION}</strong>
-        <span>{member.organization}</span>
-      </div>
-
-      <div>
-        <strong>{memberForm.BIRTH_DATE}</strong>
-        <span>{member.birthDate && member.birthDate.toISODate()}</span>
-      </div>
-
-      <div>
-        <strong>{memberForm.ADDRESS}</strong>
-        <span>{member.address}</span>
-      </div>
-
-      <div>
-        <strong>{memberForm.PHONE_NUMBER}</strong>
-        <span>{member.phoneNumber}</span>
-      </div>
-
-      <div>
-        <strong>{memberForm.EMAIL}</strong>
-        <span>{member.email}</span>
-      </div>
-
-      <div>
-        <strong>{memberForm.GENDER}</strong>
-        <span>{member.gender}</span>
-      </div>
-
-      <div>
-        <strong>{memberForm.REGISTRATION_DATE}</strong>
-        <span>{member.registrationDate.toISODate()}</span>
-      </div>
-
-      <div>
-        <strong>{memberForm.MEMBER_CATEGORY}</strong>
-        <span>{member.memberCategory}</span>
-      </div>
-
-      <div>
-        <strong>{memberForm.STATUS}</strong>
-        <span>{member.status}</span>
-      </div>
+      <FieldView label={memberForm.NAME} value={member.name} />
+      <FieldView label={memberForm.ORGANIZATION} value={member.organization} />
+      <FieldView label={memberForm.BIRTH_DATE} value={member.birthDate && member.birthDate.toISODate()} />
+      <FieldView label={memberForm.ADDRESS} value={member.address} />
+      <FieldView label={memberForm.PHONE_NUMBER} value={member.phoneNumber} />
+      <FieldView label={memberForm.EMAIL} value={member.email} />
+      <FieldView label={memberForm.GENDER} value={member.gender} />
+      <FieldView label={memberForm.REGISTRATION_DATE} value={member.registrationDate.toISODate()} />
+      <FieldView label={memberForm.MEMBER_CATEGORY} value={member.memberCategory} />
+      <FieldView label={memberForm.STATUS} value={member.status} />
     </>
   );
 }
