@@ -6,6 +6,8 @@ script:
   - npm run build
 node_js:
   - node
+before_deploy:
+  - cd dist
 deploy:
   provider: azure_web_apps
   verbose: true
