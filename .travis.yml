@@ -7,7 +7,7 @@ script:
 node_js:
   - node
 before_deploy:
-  - cd dist
+  - cd build
 deploy:
   provider: azure_web_apps
   verbose: true
