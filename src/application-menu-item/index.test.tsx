@@ -31,7 +31,7 @@ test('should be selected if routing matches', () => {
     history: createMemoryHistory({ initialEntries: ['/test-match'] }),
   });
 
-  expect(getByRole('listitem')).toHaveAttribute('aria-selected', 'true');
+  expect(getByRole('listitem')).toHaveAttribute('aria-checked', 'true');
 });
 
 test('should be selected if routing matches', () => {
@@ -40,7 +40,7 @@ test('should be selected if routing matches', () => {
     history: createMemoryHistory({ initialEntries: ['/test-match/something-else'] }),
   });
 
-  expect(getByRole('listitem')).toHaveAttribute('aria-selected', 'true');
+  expect(getByRole('listitem')).toHaveAttribute('aria-checked', 'true');
 });
 
 test('should not be selected if href is blank', () => {
@@ -49,7 +49,7 @@ test('should not be selected if href is blank', () => {
     history: createMemoryHistory({ initialEntries: ['/test-not-match'] }),
   });
 
-  expect(getByRole('listitem')).toHaveAttribute('aria-selected', 'false');
+  expect(getByRole('listitem')).toHaveAttribute('aria-checked', 'false');
 });
 
 test('should not be selected if routing does not match', () => {
@@ -58,5 +58,5 @@ test('should not be selected if routing does not match', () => {
     history: createMemoryHistory({ initialEntries: ['/test-not-match'] }),
   });
 
-  expect(getByRole('listitem')).toHaveAttribute('aria-selected', 'false');
+  expect(getByRole('listitem')).toHaveAttribute('aria-checked', 'false');
 });

@@ -1,11 +1,10 @@
 import React from 'react';
 import { MembersPage } from '../members/members-page';
 import { ApplicationSidebar } from '../application-sidebar';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import { NewMemberPage } from '../members/new-member-page';
 import { MemberPage } from '../members/member-page';
 import { EditMemberPage } from '../members/edit-member-page';
-import { css, Interpolation } from 'emotion';
 import { LanguageContext } from '../language-context';
 
 export function Application() {

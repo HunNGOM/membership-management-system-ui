@@ -10,7 +10,7 @@ export const ApplicationMenuItem: React.FunctionComponent<{ href: string }> = ({
   const isSelected = routeMatch != null && hrefIsNotEmpty;
 
   return (
-    <li className={cx('py-4 my-1 px-8 -mx-4', isSelected && 'bg-blue-300 text-black')} aria-selected={isSelected}>
+    <li className={cx('py-4 my-1 px-8 -mx-4', isSelected && 'bg-blue-300 text-black')} role="checkbox" aria-checked={isSelected}>
       <Link to={href}>{children}</Link>
     </li>
   );
