@@ -6,3 +6,8 @@ script:
   - npm run build
 node_js:
   - node
+deploy:
+  provider: azure_web_apps
+  verbose: true
+  local-dir: build
+  
