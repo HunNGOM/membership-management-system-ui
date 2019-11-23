@@ -8,6 +8,6 @@ export default {
 
 export const simpleApplicationSidebar = () => (
   <MemoryRouter>
-    <ApplicationSidebar />
+    <ApplicationSidebar name="Test Application" />
   </MemoryRouter>
 );
