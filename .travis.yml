@@ -11,5 +11,4 @@ before_deploy:
 deploy:
   provider: azure_web_apps
   verbose: true
-  local-dir: build
-  
+  skip_cleanup: true  
