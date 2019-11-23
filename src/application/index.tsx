@@ -17,27 +17,25 @@ export function Application() {
     <div className="flex flex-col sm:flex-row h-screen">
       <ApplicationSidebar name={APPLICATION_NAME} />
       <main className="sm:flex-1">
-        <Switch>
-          <Route path="/members">
-            <MembersPage />
-          </Route>
+        <Route exact path="/members">
+          <MembersPage />
+        </Route>
 
-          <Route path="/member/:id/edit">
-            <EditMemberPage />
-          </Route>
+        <Route exact path="/member/:id/edit">
+          <EditMemberPage />
+        </Route>
 
-          <Route path="/member/:id">
-            <MemberPage />
-          </Route>
+        <Route exact path="/member/:id">
+          <MemberPage />
+        </Route>
 
-          <Route path="/member">
-            <NewMemberPage />
-          </Route>
+        <Route exact path="/member">
+          <NewMemberPage />
+        </Route>
 
-          <Route path="/">
-            <Redirect to="/members" />
-          </Route>
-        </Switch>
+        <Route exact path="/">
+          <Redirect to="/members" />
+        </Route>
       </main>
     </div>
   );
