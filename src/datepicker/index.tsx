@@ -52,5 +52,5 @@ export function Datepicker({ value, name, isRequired, onChange }: Props) {
     },
   });
 
-  return <TextBox name={name} isRequired={isRequired} ref={datePickerRef} value={''} />;
+  return <TextBox name={name} isRequired={isRequired} ref={datePickerRef as React.Ref<HTMLInputElement>} value={''} />;
 }

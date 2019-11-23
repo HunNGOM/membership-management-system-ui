@@ -17,6 +17,6 @@ export const fieldsetWithFields = () => (
   <Fieldset
     header="Test Fieldset"
     description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores distinctio ex hic minima nesciunt, sequi tempora tenetur! Architecto dolor eius eos est et, exercitationem facere pariatur quo repellat reprehenderit sequi.">
-    <Field label="Test field" />
+    <Field label="Test field" name="test" />
   </Fieldset>
 );
