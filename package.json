@@ -60,7 +60,7 @@
     "@types/faker": "4.1.7",
     "babel-loader": "8.0.6",
     "faker": "4.1.0",
-    "node-sass": "4.13.0",
+    "node-sass": "4.14.1",
     "prettier": "1.18.2"
   }
 }
